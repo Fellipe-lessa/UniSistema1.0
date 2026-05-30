@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultar Aluno</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
+        nav { background: #1a237e; padding: 0 30px; display: flex; align-items: center; height: 60px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        nav a { color: #fff; text-decoration: none; margin-right: 30px; font-size: 15px; padding: 8px 14px; border-radius: 6px; }
+        nav a:hover { background: rgba(255,255,255,0.15); }
+        nav .brand { font-size: 18px; font-weight: bold; margin-right: 40px; color: #90caf9; }
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .card { background: #fff; border-radius: 10px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 24px; }
+        h1 { font-size: 24px; color: #1a237e; margin-bottom: 24px; }
+        h2 { font-size: 18px; color: #333; margin-bottom: 16px; border-bottom: 2px solid #e8eaf6; padding-bottom: 10px; }
+        .search-bar { display: flex; gap: 10px; margin-bottom: 24px; }
+        .search-bar input { flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        .btn { padding: 10px 22px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+        .btn:hover { opacity: 0.85; }
+        .btn-primary { background: #1a237e; color: #fff; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+        .info-item label { font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; }
+        .info-item p { font-size: 15px; color: #333; margin-top: 4px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { background: #1a237e; color: #fff; padding: 12px 14px; text-align: left; }
+        td { padding: 11px 14px; border-bottom: 1px solid #eee; }
+        tr:hover td { background: #f5f7ff; }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .badge-success { background: #e8f5e9; color: #2e7d32; }
+        .badge-danger  { background: #ffebee; color: #c62828; }
+        .badge-warn    { background: #fff8e1; color: #f57f17; }
+        .alert { padding: 12px 18px; border-radius: 6px; margin-bottom: 20px; font-size: 14px; }
+        .alert-danger { background: #ffebee; color: #c62828; border-left: 4px solid #c62828; }
+    </style>
+</head>
+<body>
+<nav>
+    <span class="brand">🎓 UniSistema</span>
+    <a th:href="@{/}">Início</a>
+    <a th:href="@{/alunos}">Alunos</a>
+    <a th:href="@{/materias}">Matérias</a>
+    <a th:href="@{/turmas}">Turmas</a>
+</nav>
+
+<div class="container">
+    <div class="card">
+        <h1>🔍 Consultar Aluno por Matrícula</h1>
+        <form th:action="@{/alunos/consultar}" method="get">
+            <div class="search-bar">
+                <input type="text" name="matricula" placeholder="Digite a matrícula do aluno..." required/>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+
+        <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+    </div>
+
+    <div th:if="${aluno != null}" class="card">
+        <h2>📋 Dados do Aluno</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <label>Nome</label>
+                <p th:text="${aluno.nome}"></p>
+            </div>
+            <div class="info-item">
+                <label>Matrícula</label>
+                <p th:text="${aluno.matricula}"></p>
+            </div>
+            <div class="info-item">
+                <label>Endereço</label>
+                <p th:text="${aluno.endereco}"></p>
+            </div>
+            <div class="info-item">
+                <label>Data de Ingresso</label>
+                <p th:text="${aluno.dataIngresso}"></p>
+            </div>
+        </div>
+
+        <h2>📚 Matérias Matriculadas</h2>
+        <div th:if="${materias != null and !materias.isEmpty()}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Matéria</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Nota 3</th>
+                        <th>Média</th>
+                        <th>Situação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="m : ${materias}">
+                        <td th:text="${m.alunoNome}"></td>
+                        <td th:text="${m.nota1 != null ? m.nota1 : '-'}"></td>
+                        <td th:text="${m.nota2 != null ? m.nota2 : '-'}"></td>
+                        <td th:text="${m.nota3 != null ? m.nota3 : '-'}"></td>
+                        <td th:text="${m.media != null ? #numbers.formatDecimal(m.media, 1, 2) : '-'}"></td>
+                        <td>
+                            <span th:if="${m.media == null}" class="badge badge-warn">Aguardando notas</span>
+                            <span th:if="${m.media != null and m.aprovado}" class="badge badge-success">✅ Aprovado</span>
+                            <span th:if="${m.media != null and !m.aprovado}" class="badge badge-danger">❌ Reprovado</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p th:if="${materias == null or materias.isEmpty()}" style="color:#999; margin-top:10px;">
+            Este aluno não está matriculado em nenhuma turma ainda.
+        </p>
+    </div>
+</div>
+</body>
+</html>

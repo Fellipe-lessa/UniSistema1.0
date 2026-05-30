@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultar Matéria</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
+        nav { background: #1a237e; padding: 0 30px; display: flex; align-items: center; height: 60px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        nav a { color: #fff; text-decoration: none; margin-right: 30px; font-size: 15px; padding: 8px 14px; border-radius: 6px; }
+        nav a:hover { background: rgba(255,255,255,0.15); }
+        nav .brand { font-size: 18px; font-weight: bold; margin-right: 40px; color: #90caf9; }
+        .container { max-width: 700px; margin: 40px auto; padding: 0 20px; }
+        .card { background: #fff; border-radius: 10px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 24px; }
+        h1 { font-size: 24px; color: #1a237e; margin-bottom: 24px; }
+        h2 { font-size: 18px; color: #333; margin-bottom: 16px; border-bottom: 2px solid #e8eaf6; padding-bottom: 10px; }
+        .search-bar { display: flex; gap: 10px; }
+        .search-bar input { flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        .btn { padding: 10px 22px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+        .btn:hover { opacity: 0.85; }
+        .btn-primary { background: #1a237e; color: #fff; }
+        .info-item { margin-bottom: 16px; }
+        .info-item label { font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; display: block; margin-bottom: 4px; }
+        .info-item p { font-size: 15px; color: #333; line-height: 1.6; }
+        .alert { padding: 12px 18px; border-radius: 6px; margin-top: 16px; font-size: 14px; }
+        .alert-danger { background: #ffebee; color: #c62828; border-left: 4px solid #c62828; }
+    </style>
+</head>
+<body>
+<nav>
+    <span class="brand">🎓 UniSistema</span>
+    <a th:href="@{/}">Início</a>
+    <a th:href="@{/alunos}">Alunos</a>
+    <a th:href="@{/materias}">Matérias</a>
+    <a th:href="@{/turmas}">Turmas</a>
+</nav>
+
+<div class="container">
+    <div class="card">
+        <h1>🔍 Consultar Matéria por Código</h1>
+        <form th:action="@{/materias/consultar}" method="get">
+            <div class="search-bar">
+                <input type="text" name="codigo" placeholder="Digite o código da matéria..." required/>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+        <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+    </div>
+
+    <div th:if="${materia != null}" class="card">
+        <h2>📋 Dados da Matéria</h2>
+        <div class="info-item">
+            <label>Código</label>
+            <p th:text="${materia.codigo}"></p>
+        </div>
+        <div class="info-item">
+            <label>Nome</label>
+            <p th:text="${materia.nome}"></p>
+        </div>
+        <div class="info-item">
+            <label>Ementa</label>
+            <p th:text="${materia.ementa}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

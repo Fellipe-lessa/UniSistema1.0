@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Universitário</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
+        nav {
+            background: #1a237e; padding: 0 30px;
+            display: flex; align-items: center; height: 60px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        nav a { color: #fff; text-decoration: none; margin-right: 30px; font-size: 15px; padding: 8px 14px; border-radius: 6px; transition: background 0.2s; }
+        nav a:hover { background: rgba(255,255,255,0.15); }
+        nav .brand { font-size: 18px; font-weight: bold; margin-right: 40px; color: #90caf9; }
+        .hero { background: linear-gradient(135deg, #1a237e, #283593); color: #fff; padding: 80px 30px; text-align: center; }
+        .hero h1 { font-size: 36px; margin-bottom: 14px; }
+        .hero p { font-size: 18px; opacity: 0.85; }
+        .cards { display: flex; gap: 24px; justify-content: center; padding: 50px 30px; flex-wrap: wrap; }
+        .card {
+            background: #fff; border-radius: 12px; padding: 32px 28px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08); width: 260px; text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        .card .icon { font-size: 48px; margin-bottom: 16px; }
+        .card h2 { font-size: 20px; color: #1a237e; margin-bottom: 10px; }
+        .card p { font-size: 14px; color: #666; margin-bottom: 20px; }
+        .btn { padding: 10px 22px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; background: #1a237e; color: #fff; transition: opacity 0.2s; }
+        .btn:hover { opacity: 0.85; }
+    </style>
+</head>
+<body>
+<nav>
+    <span class="brand">🎓 UniSistema</span>
+    <a th:href="@{/}">Início</a>
+    <a th:href="@{/alunos}">Alunos</a>
+    <a th:href="@{/materias}">Matérias</a>
+    <a th:href="@{/turmas}">Turmas</a>
+</nav>
+
+<div class="hero">
+    <h1>🎓 Sistema de Gestão Universitária</h1>
+    <p>Gerencie alunos, matérias e turmas de forma simples e eficiente</p>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <div class="icon">👨‍🎓</div>
+        <h2>Alunos</h2>
+        <p>Cadastre e consulte alunos por matrícula, veja suas matérias e médias</p>
+        <a th:href="@{/alunos}" class="btn">Acessar</a>
+    </div>
+    <div class="card">
+        <div class="icon">📚</div>
+        <h2>Matérias</h2>
+        <p>Cadastre disciplinas com código e ementa completa</p>
+        <a th:href="@{/materias}" class="btn">Acessar</a>
+    </div>
+    <div class="card">
+        <div class="icon">🏫</div>
+        <h2>Turmas</h2>
+        <p>Gerencie turmas, matricule alunos e lance notas</p>
+        <a th:href="@{/turmas}" class="btn">Acessar</a>
+    </div>
+</div>
+</body>
+</html>

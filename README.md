@@ -1,29 +1,29 @@
-# 🎓 Sistema de Gestão Universitária
+# Sistema de Gestão Universitária
 
 Sistema web desenvolvido em Java com Spring Boot para gerenciamento de alunos, matérias e turmas de uma universidade.
 
 ---
 
-## 📋 Sobre o Projeto
+##  Sobre o Projeto
 
 Este projeto foi desenvolvido como projeto final da disciplina de Desenvolvimento Web, simulando um ambiente universitário com três módulos principais: cadastro e consulta de **Alunos**, **Matérias** e **Turmas**.
 
 ---
 
-## ✅ Funcionalidades
+##  Funcionalidades
 
-### 👨‍🎓 Módulo Alunos
+###  Módulo Alunos
 - Cadastro de alunos com nome, endereço, matrícula e data de ingresso
 - Consulta por matrícula
 - Visualização das matérias em que o aluno está matriculado
 - Exibição das notas e média por matéria
 - Status de aprovação ou reprovação
 
-### 📚 Módulo Matérias
+###  Módulo Matérias
 - Cadastro de matérias com código, nome e ementa
 - Consulta por código da matéria
 
-### 🏫 Módulo Turmas
+###  Módulo Turmas
 - Cadastro de turmas vinculadas a uma matéria
 - Consulta por código da turma
 - Matrícula de alunos nas turmas
@@ -33,7 +33,7 @@ Este projeto foi desenvolvido como projeto final da disciplina de Desenvolviment
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 | Tecnologia | Versão | Descrição |
 |------------|--------|-----------|
@@ -46,7 +46,7 @@ Este projeto foi desenvolvido como projeto final da disciplina de Desenvolviment
 
 ---
 
-## 🏗️ Arquitetura do Projeto
+##  Arquitetura do Projeto
 
 O projeto segue o padrão **MVC** com camada **DAO** para acesso ao banco de dados:
 
@@ -81,7 +81,7 @@ src/main/resources/
 
 ---
 
-## 🗄️ Banco de Dados
+##  Banco de Dados
 
 As tabelas são criadas automaticamente ao iniciar a aplicação:
 
@@ -94,7 +94,7 @@ tb_matricula   → id, aluno_id, turma_id, nota1, nota2, nota3
 
 ---
 
-## 🚀 Como Executar
+##  Como Executar
 
 ### Pré-requisitos
 - Java 17+
@@ -130,7 +130,7 @@ Acesse em: **http://localhost:8081**
 
 ---
 
-## 👥 Equipe
+##  Equipe
 
 | Nome | GitHub |
 |------|--------|

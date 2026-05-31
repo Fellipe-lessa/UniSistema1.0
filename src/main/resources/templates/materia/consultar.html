@@ -37,7 +37,7 @@
 
 <div class="container">
     <div class="card">
-        <h1>🔍 Consultar Matéria por Código</h1>
+        <h1> Consultar Matéria por Código</h1>
         <form th:action="@{/materias/consultar}" method="get">
             <div class="search-bar">
                 <input type="text" name="codigo" placeholder="Digite o código da matéria..." required/>
@@ -48,7 +48,7 @@
     </div>
 
     <div th:if="${materia != null}" class="card">
-        <h2>📋 Dados da Matéria</h2>
+        <h2> Dados da Matéria</h2>
         <div class="info-item">
             <label>Código</label>
             <p th:text="${materia.codigo}"></p>

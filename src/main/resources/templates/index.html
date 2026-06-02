@@ -2,36 +2,162 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Universitário</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
+
         nav {
-            background: #1a237e; padding: 0 30px;
-            display: flex; align-items: center; height: 60px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            background: #1a237e;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            gap: 32px;
         }
-        nav a { color: #fff; text-decoration: none; margin-right: 30px; font-size: 15px; padding: 8px 14px; border-radius: 6px; transition: background 0.2s; }
-        nav a:hover { background: rgba(255,255,255,0.15); }
-        nav .brand { font-size: 18px; font-weight: bold; margin-right: 40px; color: #90caf9; }
-        .hero { background: linear-gradient(135deg, #1a237e, #283593); color: #fff; padding: 80px 30px; text-align: center; }
-        .hero h1 { font-size: 36px; margin-bottom: 14px; }
-        .hero p { font-size: 18px; opacity: 0.85; }
-        .cards { display: flex; gap: 24px; justify-content: center; padding: 50px 30px; flex-wrap: wrap; }
+        nav .brand { font-size: 18px; font-weight: 600; color: #90caf9; margin-right: 16px; }
+        nav a { color: #fff; text-decoration: none; font-size: 14px; opacity: 0.9; padding: 6px 12px; border-radius: 6px; transition: background 0.2s; }
+        nav a:hover { background: rgba(255,255,255,0.15); opacity: 1; }
+
+        .hero {
+            background: #1a237e;
+            padding: 70px 40px 100px;
+            text-align: center;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            color: #90caf9;
+            font-size: 12px;
+            letter-spacing: 2px;
+            padding: 5px 16px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .hero h1 { font-size: 38px; color: #fff; margin-bottom: 16px; font-weight: 600; }
+        .hero p { font-size: 16px; color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto 36px; line-height: 1.7; }
+        .hero-buttons { display: flex; gap: 12px; justify-content: center; }
+        .hero-buttons .btn-white {
+            background: #fff; color: #1a237e;
+            border: none; padding: 13px 30px;
+            border-radius: 8px; font-size: 14px;
+            font-weight: 600; cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .hero-buttons .btn-white:hover { opacity: 0.9; }
+        .hero-buttons .btn-outline {
+            background: transparent; color: #fff;
+            border: 1.5px solid rgba(255,255,255,0.4);
+            padding: 13px 30px; border-radius: 8px;
+            font-size: 14px; cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .hero-buttons .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+        .cards-wrapper {
+            max-width: 960px;
+            margin: -48px auto 0;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
         .card {
-            background: #fff; border-radius: 12px; padding: 32px 28px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08); width: 260px; text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+            background: #fff;
+            padding: 32px 28px;
+            border: 0.5px solid #e0e0e0;
+            position: relative;
+            overflow: hidden;
         }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-        .card .icon { font-size: 48px; margin-bottom: 16px; }
-        .card h2 { font-size: 20px; color: #1a237e; margin-bottom: 10px; }
-        .card p { font-size: 14px; color: #666; margin-bottom: 20px; }
-        .btn { padding: 10px 22px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; background: #1a237e; color: #fff; transition: opacity 0.2s; }
-        .btn:hover { opacity: 0.85; }
+        .card:first-child { border-radius: 12px 0 0 12px; }
+        .card:last-child  { border-radius: 0 12px 12px 0; }
+        .card.featured {
+            background: #1a237e;
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .card-icon {
+            width: 50px; height: 50px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .card-icon.blue  { background: #e8eaf6; color: #3949ab; }
+        .card-icon.white { background: rgba(255,255,255,0.15); color: #fff; }
+        .card-icon.green { background: #e8f5e9; color: #2e7d32; }
+
+        .card-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card h2 { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+        .card.featured h2 { color: #fff; }
+        .card p { font-size: 14px; line-height: 1.6; margin-bottom: 24px; color: #555; }
+        .card.featured p { color: rgba(255,255,255,0.7); }
+
+        .card-features { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 9px; }
+        .card-features li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; }
+        .card-features li i { font-size: 15px; }
+        .card-features li i.blue  { color: #3949ab; }
+        .card-features li i.white { color: #90caf9; }
+        .card-features li i.green { color: #2e7d32; }
+        .card.featured .card-features li { color: rgba(255,255,255,0.75); }
+
+        .card-btn {
+            display: block; width: 100%;
+            padding: 12px; border: none;
+            border-radius: 8px; font-size: 14px;
+            font-weight: 600; cursor: pointer;
+            text-decoration: none; text-align: center;
+            transition: opacity 0.2s;
+        }
+        .card-btn:hover { opacity: 0.88; }
+        .card-btn.blue  { background: #1a237e; color: #fff; }
+        .card-btn.white { background: #fff; color: #1a237e; }
+        .card-btn.green { background: #2e7d32; color: #fff; }
+
+        .stats {
+            max-width: 960px;
+            margin: 32px auto 0;
+            padding: 0 40px 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .stat-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+            border: 0.5px solid #e0e0e0;
+        }
+        .stat-card .number { font-size: 32px; font-weight: 700; color: #1a237e; margin-bottom: 4px; }
+        .stat-card .label  { font-size: 13px; color: #888; }
+
+        .featured-bg-circle {
+            position: absolute;
+            top: -30px; right: -30px;
+            width: 120px; height: 120px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
+
 <nav>
     <span class="brand">🎓 UniSistema</span>
     <a th:href="@{/}">Início</a>
@@ -41,29 +167,77 @@
 </nav>
 
 <div class="hero">
+    <div class="badge">SISTEMA ACADÊMICO</div>
     <h1>Sistema de Gestão Universitária</h1>
-    <p>Gerencie alunos, matérias e turmas de forma simples e eficiente</p>
+    <p>Gerencie alunos, matérias e turmas de forma simples, rápida e eficiente</p>
+    <div class="hero-buttons">
+        <a th:href="@{/alunos}" class="btn-white">Começar agora</a>
+        <a th:href="@{/turmas}" class="btn-outline">Ver turmas</a>
+    </div>
 </div>
 
-<div class="cards">
-    <div class="card">
+<div class="cards-wrapper">
 
+    <div class="card">
+        <div class="card-icon green">
+            <i class="ti ti-users"></i>
+        </div>
         <h2>Alunos</h2>
-        <p>Cadastre e consulte alunos por matrícula, veja suas matérias e médias</p>
-        <a th:href="@{/alunos}" class="btn">Acessar</a>
+        <p>Cadastre e consulte alunos por matrícula. Visualize matérias, notas e médias em um só lugar.</p>
+        <ul class="card-features">
+            <li><i class="ti ti-check blue"></i> Cadastro completo</li>
+            <li><i class="ti ti-check blue"></i> Consulta por matrícula</li>
+            <li><i class="ti ti-check blue"></i> Histórico de notas</li>
+        </ul>
+        <a th:href="@{/alunos}" class="card-btn blue">Ver Detalhadamenete →</a>
     </div>
-    <div class="card">
 
+    <div class="card featured">
+        <div class="featured-bg-circle"></div>
+        <div class="card-icon green">
+            <i class="ti ti-book"></i>
+        </div>
         <h2>Matérias</h2>
-        <p>Cadastre disciplinas com código e ementa completa</p>
-        <a th:href="@{/materias}" class="btn">Acessar</a>
+        <p>Cadastre disciplinas com código único e ementa detalhada. Consulte rapidamente por código.</p>
+        <ul class="card-features">
+            <li><i class="ti ti-check white"></i> Código único</li>
+            <li><i class="ti ti-check white"></i> Busca rapida</li>
+            <li><i class="ti ti-check white"></i> Ementa completa</li>
+        </ul>
+        <a th:href="@{/materias}" class="card-btn white">Ver Detalhadamente →</a>
     </div>
-    <div class="card">
 
+    <div class="card">
+        <div class="card-icon green">
+            <i class="ti ti-school"></i>
+        </div>
         <h2>Turmas</h2>
-        <p>Gerencie turmas, matricule alunos e lance notas</p>
-        <a th:href="@{/turmas}" class="btn">Acessar</a>
+        <p>Gerencie turmas, matricule alunos e lance notas. Aprovação calculada automaticamente.</p>
+        <ul class="card-features">
+            <li><i class="ti ti-check green"></i> Matrícula de alunos</li>
+            <li><i class="ti ti-check green"></i> Lançamento de notas</li>
+            <li><i class="ti ti-check green"></i> Aprovação automática</li>
+        </ul>
+        <a th:href="@{/turmas}" class="card-btn blue">Ver Detalhadamente →</a>
+    </div>
+
+</div>
+
+<div class="stats">
+    <div class="stat-card">
+        <div class="number">Cadastro de Estudantes</div>
+        <div class="label">Insira e consulte informações dos alunos</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="number">Média 6.0</div>
+        <div class="label">Média mínima para aprovação obrigatória em cada matéria</div>
+    </div>
+    <div class="stat-card">
+        <div class="number">Infinitas Possibilidades</div>
+        <div class="label">Insira ou consulte suas matérias</div>
     </div>
 </div>
+
 </body>
 </html>

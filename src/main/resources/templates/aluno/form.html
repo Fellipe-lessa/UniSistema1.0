@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastrar Aluno</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
-        nav { background: #1a237e; padding: 0 30px; display: flex; align-items: center; height: 60px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-        nav a { color: #fff; text-decoration: none; margin-right: 30px; font-size: 15px; padding: 8px 14px; border-radius: 6px; transition: background 0.2s; }
+        nav { background: #1a237e; padding: 0 40px; display: flex; align-items: center; height: 60px; gap: 32px; }
+        nav .brand { font-size: 18px; font-weight: 600; color: #90caf9; margin-right: 16px; }
+        nav a { color: #fff; text-decoration: none; font-size: 14px; opacity: 0.9; padding: 6px 12px; border-radius: 6px; transition: background 0.2s; }
         nav a:hover { background: rgba(255,255,255,0.15); }
-        nav .brand { font-size: 18px; font-weight: bold; margin-right: 40px; color: #90caf9; }
-        .container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
-        .card { background: #fff; border-radius: 10px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-        h1 { font-size: 24px; color: #1a237e; margin-bottom: 24px; }
-        .form-group { margin-bottom: 18px; }
-        label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 6px; }
-        input { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; transition: border 0.2s; }
-        input:focus { outline: none; border-color: #1a237e; box-shadow: 0 0 0 3px rgba(26,35,126,0.1); }
-        .actions { display: flex; gap: 12px; margin-top: 24px; }
-        .btn { padding: 10px 22px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
-        .btn:hover { opacity: 0.85; }
+        .page-header { background: #1a237e; padding: 36px 40px 60px; }
+        .page-header h1 { font-size: 28px; color: #fff; font-weight: 600; margin-bottom: 6px; }
+        .page-header p { font-size: 14px; color: rgba(255,255,255,0.6); }
+        .content { max-width: 600px; margin: -32px auto 40px; padding: 0 40px; }
+        .card { background: #fff; border-radius: 12px; border: 0.5px solid #e0e0e0; padding: 32px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 7px; }
+        input { width: 100%; padding: 11px 14px; border: 0.5px solid #ddd; border-radius: 8px; font-size: 14px; transition: border 0.2s; background: #fafafa; }
+        input:focus { outline: none; border-color: #1a237e; box-shadow: 0 0 0 3px rgba(26,35,126,0.08); background: #fff; }
+        .form-hint { font-size: 12px; color: #aaa; margin-top: 5px; }
+        .divider { border: none; border-top: 0.5px solid #eee; margin: 24px 0; }
+        .form-actions { display: flex; gap: 12px; margin-top: 28px; }
+        .btn { padding: 11px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
+        .btn:hover { opacity: 0.88; }
         .btn-primary { background: #1a237e; color: #fff; }
-        .btn-secondary { background: #546e7a; color: #fff; }
+        .btn-secondary { background: #f0f2f5; color: #333; border: 0.5px solid #e0e0e0; }
     </style>
 </head>
 <body>
@@ -33,10 +38,13 @@
     <a th:href="@{/turmas}">Turmas</a>
 </nav>
 
-<div class="container">
-    <div class="card">
-        <h1>Cadastrar Aluno</h1>
+<div class="page-header">
+    <h1>Cadastrar Aluno</h1>
+    <p>Preencha os dados do novo aluno</p>
+</div>
 
+<div class="content">
+    <div class="card">
         <form th:action="@{/alunos/salvar}" method="post">
             <div class="form-group">
                 <label>Nome Completo *</label>
@@ -46,17 +54,19 @@
                 <label>Endereço *</label>
                 <input type="text" name="endereco" required placeholder="Ex: Rua das Flores, 123 - Aracaju/SE"/>
             </div>
+            <hr class="divider">
             <div class="form-group">
                 <label>Matrícula *</label>
                 <input type="text" name="matricula" required placeholder="Ex: 2024001"/>
+                <p class="form-hint">A matrícula deve ser única no sistema</p>
             </div>
             <div class="form-group">
                 <label>Data de Ingresso *</label>
                 <input type="date" name="dataIngresso" required/>
             </div>
-            <div class="actions">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                <a th:href="@{/alunos}" class="btn btn-secondary">Cancelar</a>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i class="ti ti-check"></i> Salvar aluno</button>
+                <a th:href="@{/alunos}" class="btn btn-secondary"><i class="ti ti-arrow-left"></i> Cancelar</a>
             </div>
         </form>
     </div>

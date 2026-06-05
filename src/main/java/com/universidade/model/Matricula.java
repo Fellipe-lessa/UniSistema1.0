@@ -7,6 +7,9 @@ public class Matricula {
     private Integer turmaId;
     private String alunoNome;
     private String alunoMatricula;
+    private String turmaCodigo;
+    private String turmaDescricao;
+    private String materiaNome;
     private Double nota1;
     private Double nota2;
     private Double nota3;
@@ -37,6 +40,15 @@ public class Matricula {
 
     public String getAlunoMatricula() { return alunoMatricula; }
     public void setAlunoMatricula(String alunoMatricula) { this.alunoMatricula = alunoMatricula; }
+
+    public String getTurmaCodigo() { return turmaCodigo; }
+    public void setTurmaCodigo(String turmaCodigo) { this.turmaCodigo = turmaCodigo; }
+
+    public String getTurmaDescricao() { return turmaDescricao; }
+    public void setTurmaDescricao(String turmaDescricao) { this.turmaDescricao = turmaDescricao; }
+
+    public String getMateriaNome() { return materiaNome; }
+    public void setMateriaNome(String materiaNome) { this.materiaNome = materiaNome; }
 
     public Double getNota1() { return nota1; }
     public void setNota1(Double nota1) { this.nota1 = nota1; }

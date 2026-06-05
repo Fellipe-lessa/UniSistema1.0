@@ -2,104 +2,141 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Consultar Aluno</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Aluno · UniSistema</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
-        nav { background: #1a237e; padding: 0 40px; display: flex; align-items: center; height: 60px; gap: 32px; }
-        nav .brand { font-size: 18px; font-weight: 600; color: #90caf9; margin-right: 16px; }
-        nav a { color: #fff; text-decoration: none; font-size: 14px; opacity: 0.9; padding: 6px 12px; border-radius: 6px; transition: background 0.2s; }
-        nav a:hover { background: rgba(255,255,255,0.15); }
-        .page-header { background: #1a237e; padding: 36px 40px 60px; }
-        .page-header h1 { font-size: 28px; color: #fff; font-weight: 600; margin-bottom: 6px; }
-        .page-header p { font-size: 14px; color: rgba(255,255,255,0.6); }
-        .content { max-width: 860px; margin: -32px auto 40px; padding: 0 40px; }
-        .card { background: #fff; border-radius: 12px; border: 0.5px solid #e0e0e0; padding: 28px; margin-bottom: 20px; }
-        .search-bar { display: flex; gap: 10px; }
-        .search-bar input { flex: 1; padding: 11px 14px; border: 0.5px solid #ddd; border-radius: 8px; font-size: 14px; background: #fafafa; }
-        .search-bar input:focus { outline: none; border-color: #1a237e; box-shadow: 0 0 0 3px rgba(26,35,126,0.08); background: #fff; }
-        .btn { padding: 11px 22px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
-        .btn:hover { opacity: 0.88; }
-        .btn-primary { background: #1a237e; color: #fff; }
-        .alert { padding: 12px 18px; border-radius: 8px; margin-top: 16px; font-size: 14px; display: flex; align-items: center; gap: 10px; }
-        .alert-danger { background: #ffebee; color: #c62828; border-left: 3px solid #c62828; }
-        .profile { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 0.5px solid #eee; }
-        .avatar-lg { width: 60px; height: 60px; border-radius: 50%; background: #e8eaf6; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: #3949ab; }
-        .profile-info h2 { font-size: 20px; font-weight: 600; color: #1a237e; }
-        .profile-info p { font-size: 13px; color: #888; margin-top: 3px; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
-        .info-item { background: #f8f9ff; border-radius: 8px; padding: 14px 16px; }
-        .info-item label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px; }
-        .info-item p { font-size: 14px; color: #333; }
-        .section-title { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        thead tr { border-bottom: 2px solid #e8eaf6; }
-        th { padding: 10px 14px; text-align: left; font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
-        td { padding: 13px 14px; border-bottom: 0.5px solid #f0f0f0; }
-        tbody tr:last-child td { border-bottom: none; }
-        tbody tr:hover td { background: #f5f7ff; }
-        .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-        .badge-success { background: #e8f5e9; color: #2e7d32; }
-        .badge-danger  { background: #ffebee; color: #c62828; }
-        .badge-warn    { background: #fff8e1; color: #f57f17; }
+        nav { background: #1a237e; padding: 0 40px; display: flex; align-items: center; height: 60px; gap: 32px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
+        nav .brand { font-size: 18px; font-weight: 600; color: #90caf9; margin-right: 16px; display: flex; align-items: center; gap: 8px; }
+        nav a { color: #fff; text-decoration: none; font-size: 14px; opacity: 0.9; padding: 6px 12px; border-radius: 6px; transition: background 0.2s; display: flex; align-items: center; gap: 6px; }
+        nav a:hover { background: rgba(255,255,255,0.15); opacity: 1; }
+        nav a.active { background: rgba(255,255,255,0.18); opacity: 1; }
+        nav a i { font-size: 16px; }
+        .nav-status { margin-left: auto; display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.75); font-size: 12px; padding: 5px 13px; border-radius: 999px; }
+        .nav-status .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; }
+
+        .page-header { background: #1a237e; padding: 32px 40px 56px; }
+        .page-header-inner { max-width: 760px; margin: 0 auto; }
+        .breadcrumb { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+        .breadcrumb a:hover { color: #fff; }
+        .page-header h1 { font-size: 24px; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 10px; }
+
+        .content { max-width: 760px; margin: -36px auto 48px; padding: 0 40px; }
+
+        /* busca */
+        .search-form {
+            background: #fff; border: 0.5px solid #e0e0e0; border-radius: 10px;
+            padding: 16px 20px; display: flex; gap: 10px; align-items: center;
+            margin-bottom: 20px;
+        }
+        .search-form input { flex: 1; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px 14px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+        .search-form input:focus { border-color: #3949ab; }
+        .search-form button { background: #1a237e; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
+        .search-form button:hover { opacity: 0.88; }
+
+        .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .alert-error { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+
+        /* card perfil */
+        .profile-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+        .profile-top { background: #1a237e; padding: 24px; display: flex; align-items: center; gap: 18px; }
+        .profile-avatar { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #fff; flex-shrink: 0; }
+        .profile-name { font-size: 20px; font-weight: 600; color: #fff; }
+        .profile-mat { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+        .profile-body { padding: 20px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .info-item label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #9e9e9e; margin-bottom: 4px; display: block; }
+        .info-item span { font-size: 14px; color: #333; }
+
+        /* tabela notas */
+        .section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9e9e9e; margin-bottom: 12px; }
+        .table-box { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; }
+        thead th { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #9e9e9e; padding: 10px 20px; text-align: left; background: #fafafa; border-bottom: 1px solid #f0f0f0; }
+        tbody tr { border-bottom: 1px solid #f8f8f8; transition: background 0.15s; }
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: #f5f7ff; }
+        tbody td { padding: 13px 20px; font-size: 14px; color: #444; }
+        .badge-aprovado { background: #e8f5e9; color: #2e7d32; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+        .badge-reprovado { background: #ffebee; color: #c62828; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+        .media-num { font-weight: 700; color: #1a237e; }
+
+        .btn-back { background: #f0f2f5; color: #555; border: none; padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; transition: background 0.2s; margin-top: 16px; }
+        .btn-back:hover { background: #e0e0e0; }
+
+        .empty-state { text-align: center; padding: 40px; color: #bbb; }
+        .empty-state i { font-size: 36px; margin-bottom: 10px; display: block; }
     </style>
 </head>
 <body>
 <nav>
-    <span class="brand">🎓 UniSistema</span>
-    <a th:href="@{/}">Início</a>
-    <a th:href="@{/alunos}">Alunos</a>
-    <a th:href="@{/materias}">Matérias</a>
-    <a th:href="@{/turmas}">Turmas</a>
+    <span class="brand"><i class="ti ti-school"></i> UniSistema</span>
+    <a th:href="@{/}"><i class="ti ti-home"></i> Início</a>
+    <a th:href="@{/alunos}" class="active"><i class="ti ti-users"></i> Alunos</a>
+    <a th:href="@{/materias}"><i class="ti ti-book"></i> Matérias</a>
+    <a th:href="@{/turmas}"><i class="ti ti-chalkboard"></i> Turmas</a>
+    <div class="nav-status"><span class="dot"></span> Sistema ativo · Porta 8081</div>
 </nav>
 
 <div class="page-header">
-    <h1>Consultar Aluno</h1>
-    <p>Busque um aluno pela matrícula</p>
+    <div class="page-header-inner">
+        <div class="breadcrumb">
+            <a th:href="@{/}">Início</a>
+            <i class="ti ti-chevron-right" style="font-size:12px;"></i>
+            <a th:href="@{/alunos}">Alunos</a>
+            <i class="ti ti-chevron-right" style="font-size:12px;"></i>
+            <span>Consulta</span>
+        </div>
+        <h1><i class="ti ti-search"></i> Consultar Aluno</h1>
+    </div>
 </div>
 
 <div class="content">
-    <div class="card">
-        <form th:action="@{/alunos/consultar}" method="get">
-            <div class="search-bar">
-                <input type="text" name="matricula" placeholder="Digite a matrícula do aluno..." required/>
-                <button type="submit" class="btn btn-primary"><i class="ti ti-search"></i> Buscar</button>
-            </div>
+    <div class="search-form">
+        <form th:action="@{/alunos/consultar}" method="get" style="display:flex;gap:10px;flex:1;">
+            <input type="text" name="matricula" placeholder="Digite a matrícula do aluno..." th:value="${param.matricula}" required>
+            <button type="submit"><i class="ti ti-search"></i> Buscar</button>
         </form>
-        <div th:if="${erro}" class="alert alert-danger"><i class="ti ti-alert-circle"></i> <span th:text="${erro}"></span></div>
     </div>
 
-    <div th:if="${aluno != null}" class="card">
-        <div class="profile">
-            <div class="avatar-lg" th:text="${#strings.substring(aluno.nome,0,2).toUpperCase()}"></div>
-            <div class="profile-info">
-                <h2 th:text="${aluno.nome}"></h2>
-                <p>Aluno cadastrado no sistema</p>
+    <div th:if="${erro}" class="alert alert-error">
+        <i class="ti ti-alert-circle"></i>
+        <span th:text="${erro}"></span>
+    </div>
+
+    <div th:if="${aluno != null}">
+        <div class="profile-card">
+            <div class="profile-top">
+                <div class="profile-avatar" th:text="${#strings.substring(aluno.nome, 0, 1)}">A</div>
+                <div>
+                    <div class="profile-name" th:text="${aluno.nome}">Nome</div>
+                    <div class="profile-mat">Matrícula: <strong th:text="${aluno.matricula}">0000</strong></div>
+                </div>
+            </div>
+            <div class="profile-body">
+                <div class="info-item">
+                    <label><i class="ti ti-map-pin" style="font-size:12px;vertical-align:-1px;margin-right:3px;"></i> Endereço</label>
+                    <span th:text="${aluno.endereco}">—</span>
+                </div>
+                <div class="info-item">
+                    <label><i class="ti ti-calendar" style="font-size:12px;vertical-align:-1px;margin-right:3px;"></i> Data de Ingresso</label>
+                    <span th:text="${aluno.dataIngresso}">—</span>
+                </div>
             </div>
         </div>
 
-        <div class="info-grid">
-            <div class="info-item">
-                <label>Matrícula</label>
-                <p th:text="${aluno.matricula}"></p>
+        <p class="section-title">Matérias matriculadas</p>
+        <div class="table-box">
+            <div th:if="${matriculas == null or matriculas.isEmpty()}" class="empty-state">
+                <i class="ti ti-book-off"></i>
+                <p>Aluno sem matrículas em turmas.</p>
             </div>
-            <div class="info-item">
-                <label>Data de Ingresso</label>
-                <p th:text="${aluno.dataIngresso}"></p>
-            </div>
-            <div class="info-item" style="grid-column: span 2">
-                <label>Endereço</label>
-                <p th:text="${aluno.endereco}"></p>
-            </div>
-        </div>
-
-        <div class="section-title"><i class="ti ti-book"></i> Matérias Matriculadas</div>
-
-        <div th:if="${materias != null and !materias.isEmpty()}">
-            <table>
+            <table th:if="${matriculas != null and !matriculas.isEmpty()}">
                 <thead>
                     <tr>
+                        <th>Turma</th>
                         <th>Matéria</th>
                         <th>Nota 1</th>
                         <th>Nota 2</th>
@@ -109,24 +146,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="m : ${materias}">
-                        <td th:text="${m.alunoNome}"></td>
-                        <td th:text="${m.nota1 != null ? m.nota1 : '-'}"></td>
-                        <td th:text="${m.nota2 != null ? m.nota2 : '-'}"></td>
-                        <td th:text="${m.nota3 != null ? m.nota3 : '-'}"></td>
-                        <td th:text="${m.media != null ? #numbers.formatDecimal(m.media,1,2) : '-'}"></td>
+                    <tr th:each="m : ${matriculas}">
+                        <td th:text="${m.turmaCodigo}">T01</td>
+                        <td th:text="${m.materiaNome}">Matéria</td>
+                        <td th:text="${m.nota1}">0</td>
+                        <td th:text="${m.nota2}">0</td>
+                        <td th:text="${m.nota3}">0</td>
+                        <td><span class="media-num" th:text="${#numbers.formatDecimal(m.media, 1, 1)}">0,0</span></td>
                         <td>
-                            <span th:if="${m.media == null}" class="badge badge-warn">Aguardando</span>
-                            <span th:if="${m.media != null and m.aprovado}" class="badge badge-success">✓ Aprovado</span>
-                            <span th:if="${m.media != null and !m.aprovado}" class="badge badge-danger">✗ Reprovado</span>
+                            <span th:if="${m.media >= 6}" class="badge-aprovado"><i class="ti ti-check" style="font-size:11px;"></i> Aprovado</span>
+                            <span th:if="${m.media < 6}"  class="badge-reprovado"><i class="ti ti-x" style="font-size:11px;"></i> Reprovado</span>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <p th:if="${materias == null or materias.isEmpty()}" style="color:#aaa;font-size:14px;padding:20px 0">
-            Este aluno não está matriculado em nenhuma turma ainda.
-        </p>
+
+        <a th:href="@{/alunos}" class="btn-back"><i class="ti ti-arrow-left"></i> Voltar à lista</a>
     </div>
 </div>
 </body>

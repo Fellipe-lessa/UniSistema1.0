@@ -83,15 +83,14 @@ public class AlunoDAO {
 
     public List<Matricula> buscarMateriasPorAluno(Integer alunoId) throws SQLException {
         List<Matricula> lista = new ArrayList<>();
-        String sql = """
-                SELECT m.id, m.aluno_id, m.turma_id,
-                       mt.nome as materia_nome,
-                       m.nota1, m.nota2, m.nota3
-                FROM tb_matricula m
-                JOIN tb_turma t ON t.id = m.turma_id
-                JOIN tb_materia mt ON mt.id = t.materia_id
-                WHERE m.aluno_id = ?
-                """;
+        String sql = "SELECT m.id, m.aluno_id, m.turma_id, " +
+                "t.codigo as turma_codigo, " +
+                "mt.nome as materia_nome, " +
+                "m.nota1, m.nota2, m.nota3 " +
+                "FROM tb_matricula m " +
+                "JOIN tb_turma t ON t.id = m.turma_id " +
+                "JOIN tb_materia mt ON mt.id = t.materia_id " +
+                "WHERE m.aluno_id = ?";
         try (Connection conn = ConexaoDB.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, alunoId);
@@ -101,7 +100,8 @@ public class AlunoDAO {
                 mc.setId(rs.getInt("id"));
                 mc.setAlunoId(rs.getInt("aluno_id"));
                 mc.setTurmaId(rs.getInt("turma_id"));
-                mc.setAlunoNome(rs.getString("materia_nome"));
+                mc.setTurmaCodigo(rs.getString("turma_codigo"));
+                mc.setMateriaNome(rs.getString("materia_nome"));
                 mc.setNota1(rs.getObject("nota1") != null ? rs.getDouble("nota1") : null);
                 mc.setNota2(rs.getObject("nota2") != null ? rs.getDouble("nota2") : null);
                 mc.setNota3(rs.getObject("nota3") != null ? rs.getDouble("nota3") : null);

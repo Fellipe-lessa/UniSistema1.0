@@ -22,12 +22,10 @@ public class TurmaDAO {
 
     public List<Turma> listarTodos() throws SQLException {
         List<Turma> turmas = new ArrayList<>();
-        String sql = """
-                SELECT t.*, m.nome as materia_nome
-                FROM tb_turma t
-                LEFT JOIN tb_materia m ON m.id = t.materia_id
-                ORDER BY t.codigo
-                """;
+        String sql = "SELECT t.*, m.nome as materia_nome " +
+                     "FROM tb_turma t " +
+                     "LEFT JOIN tb_materia m ON m.id = t.materia_id " +
+                     "ORDER BY t.codigo";
         try (Connection conn = ConexaoDB.getConexao();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -45,12 +43,10 @@ public class TurmaDAO {
     }
 
     public Turma buscarPorCodigo(String codigo) throws SQLException {
-        String sql = """
-                SELECT t.*, m.nome as materia_nome
-                FROM tb_turma t
-                LEFT JOIN tb_materia m ON m.id = t.materia_id
-                WHERE t.codigo = ?
-                """;
+        String sql = "SELECT t.*, m.nome as materia_nome " +
+                     "FROM tb_turma t " +
+                     "LEFT JOIN tb_materia m ON m.id = t.materia_id " +
+                     "WHERE t.codigo = ?";
         try (Connection conn = ConexaoDB.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, codigo);
@@ -70,15 +66,13 @@ public class TurmaDAO {
 
     public List<Matricula> buscarAlunosPorTurma(Integer turmaId) throws SQLException {
         List<Matricula> lista = new ArrayList<>();
-        String sql = """
-                SELECT m.id, m.aluno_id, m.turma_id,
-                       a.nome as aluno_nome, a.matricula as aluno_matricula,
-                       m.nota1, m.nota2, m.nota3
-                FROM tb_matricula m
-                JOIN tb_aluno a ON a.id = m.aluno_id
-                WHERE m.turma_id = ?
-                ORDER BY a.nome
-                """;
+        String sql = "SELECT m.id, m.aluno_id, m.turma_id, " +
+                     "a.nome as aluno_nome, a.matricula as aluno_matricula, " +
+                     "m.nota1, m.nota2, m.nota3 " +
+                     "FROM tb_matricula m " +
+                     "JOIN tb_aluno a ON a.id = m.aluno_id " +
+                     "WHERE m.turma_id = ? " +
+                     "ORDER BY a.nome";
         try (Connection conn = ConexaoDB.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, turmaId);
@@ -141,5 +135,36 @@ public class TurmaDAO {
                 throw e;
             }
         }
+    }
+
+    public List<Matricula> buscarUltimasMatriculas(int limite) throws SQLException {
+        List<Matricula> lista = new ArrayList<>();
+        String sql = "SELECT m.id, a.nome as aluno_nome, a.matricula as aluno_matricula, " +
+                     "t.codigo as turma_codigo, mat.nome as materia_nome, " +
+                     "m.nota1, m.nota2, m.nota3 " +
+                     "FROM tb_matricula m " +
+                     "JOIN tb_aluno a ON a.id = m.aluno_id " +
+                     "JOIN tb_turma t ON t.id = m.turma_id " +
+                     "JOIN tb_materia mat ON mat.id = t.materia_id " +
+                     "ORDER BY m.id DESC " +
+                     "LIMIT ?";
+        try (Connection conn = ConexaoDB.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, limite);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Matricula mc = new Matricula();
+                mc.setId(rs.getInt("id"));
+                mc.setAlunoNome(rs.getString("aluno_nome"));
+                mc.setAlunoMatricula(rs.getString("aluno_matricula"));
+                mc.setTurmaCodigo(rs.getString("turma_codigo"));
+                mc.setMateriaNome(rs.getString("materia_nome"));
+                mc.setNota1(rs.getObject("nota1") != null ? rs.getDouble("nota1") : null);
+                mc.setNota2(rs.getObject("nota2") != null ? rs.getDouble("nota2") : null);
+                mc.setNota3(rs.getObject("nota3") != null ? rs.getDouble("nota3") : null);
+                lista.add(mc);
+            }
+        }
+        return lista;
     }
 }

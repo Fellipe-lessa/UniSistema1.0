@@ -2,103 +2,131 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Turmas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turmas · UniSistema</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
-        nav { background: #1a237e; padding: 0 40px; display: flex; align-items: center; height: 60px; gap: 32px; }
-        nav .brand { font-size: 18px; font-weight: 600; color: #90caf9; margin-right: 16px; }
-        nav a { color: #fff; text-decoration: none; font-size: 14px; opacity: 0.9; padding: 6px 12px; border-radius: 6px; transition: background 0.2s; }
-        nav a:hover { background: rgba(255,255,255,0.15); }
-        .page-header { background: #1a237e; padding: 36px 40px 60px; }
-        .page-header h1 { font-size: 28px; color: #fff; font-weight: 600; margin-bottom: 6px; }
-        .page-header p { font-size: 14px; color: rgba(255,255,255,0.6); }
-        .content { max-width: 960px; margin: -32px auto 40px; padding: 0 40px; }
-        .card { background: #fff; border-radius: 12px; border: 0.5px solid #e0e0e0; padding: 28px; margin-bottom: 20px; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-        .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
-        .btn:hover { opacity: 0.88; }
-        .btn-primary { background: #1a237e; color: #fff; }
-        .btn-secondary { background: #f0f2f5; color: #333; border: 0.5px solid #e0e0e0; }
-        .btn-danger { background: #ffebee; color: #c62828; border: 0.5px solid #ffcdd2; }
-        .btn-success { background: #e8f5e9; color: #2e7d32; border: 0.5px solid #c8e6c9; }
-        .btn-sm { padding: 6px 14px; font-size: 13px; }
-        .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        thead tr { border-bottom: 2px solid #e8eaf6; }
-        th { padding: 12px 14px; text-align: left; font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
-        td { padding: 14px; border-bottom: 0.5px solid #f0f0f0; }
-        tbody tr:hover td { background: #f5f7ff; }
-        tbody tr:last-child td { border-bottom: none; }
-        .alert { padding: 12px 18px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; display: flex; align-items: center; gap: 10px; }
-        .alert-success { background: #e8f5e9; color: #2e7d32; border-left: 3px solid #2e7d32; }
-        .alert-danger  { background: #ffebee; color: #c62828; border-left: 3px solid #c62828; }
-        .empty { text-align: center; padding: 60px 20px; color: #aaa; }
-        .empty i { font-size: 48px; margin-bottom: 12px; display: block; }
-        .badge { padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-        .badge-green { background: #e8f5e9; color: #2e7d32; }
+        nav { background: #1a237e; padding: 0 40px; display: flex; align-items: center; height: 60px; gap: 32px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
+        nav .brand { font-size: 18px; font-weight: 600; color: #90caf9; margin-right: 16px; display: flex; align-items: center; gap: 8px; }
+        nav a { color: #fff; text-decoration: none; font-size: 14px; opacity: 0.9; padding: 6px 12px; border-radius: 6px; transition: background 0.2s; display: flex; align-items: center; gap: 6px; }
+        nav a:hover { background: rgba(255,255,255,0.15); opacity: 1; }
+        nav a.active { background: rgba(255,255,255,0.18); opacity: 1; }
+        nav a i { font-size: 16px; }
+        .nav-status { margin-left: auto; display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.75); font-size: 12px; padding: 5px 13px; border-radius: 999px; }
+        .nav-status .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; }
+        .page-header { background: #1a237e; padding: 32px 40px 48px; }
+        .page-header-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .page-header h1 { font-size: 26px; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 10px; }
+        .page-header p { font-size: 14px; color: rgba(255,255,255,0.65); margin-top: 4px; }
+        .btn-primary { background: #fff; color: #1a237e; border: none; padding: 11px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 7px; transition: opacity 0.2s; }
+        .btn-primary:hover { opacity: 0.9; }
+        .content { max-width: 960px; margin: -28px auto 40px; padding: 0 40px; }
+        .search-bar { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 10px; padding: 14px 20px; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .search-bar i { color: #9e9e9e; font-size: 18px; }
+        .search-bar input { flex: 1; border: none; outline: none; font-size: 14px; font-family: inherit; color: #333; }
+        .search-bar input::placeholder { color: #bbb; }
+        .table-box { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; overflow: hidden; }
+        .table-header { padding: 14px 20px; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center; justify-content: space-between; }
+        .table-header h4 { font-size: 14px; font-weight: 600; color: #1a237e; }
+        .table-header .count { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #fff8e1; color: #f57f17; }
+        table { width: 100%; border-collapse: collapse; }
+        thead th { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #9e9e9e; padding: 10px 20px; text-align: left; background: #fafafa; border-bottom: 1px solid #f0f0f0; }
+        tbody tr { border-bottom: 1px solid #f8f8f8; transition: background 0.15s; }
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: #fffdf0; }
+        tbody td { padding: 13px 20px; font-size: 14px; color: #444; }
+        .code-badge { font-size: 12px; font-weight: 700; font-family: monospace; padding: 3px 9px; border-radius: 6px; background: #fff8e1; color: #f57f17; }
+        .action-btns { display: flex; gap: 6px; }
+        .action-btn { font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 6px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: opacity 0.2s; white-space: nowrap; }
+        .action-btn:hover { opacity: 0.8; }
+        .action-btn.view { background: #fff8e1; color: #f57f17; }
+        .action-btn.enroll { background: #e8eaf6; color: #3949ab; }
+        .empty-state { text-align: center; padding: 48px 20px; color: #bbb; }
+        .empty-state i { font-size: 40px; margin-bottom: 12px; display: block; }
+        .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .alert-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
     </style>
 </head>
 <body>
 <nav>
-    <span class="brand">🎓 UniSistema</span>
-    <a th:href="@{/}">Início</a>
-    <a th:href="@{/alunos}">Alunos</a>
-    <a th:href="@{/materias}">Matérias</a>
-    <a th:href="@{/turmas}">Turmas</a>
+    <span class="brand"><i class="ti ti-school"></i> UniSistema</span>
+    <a th:href="@{/}"><i class="ti ti-home"></i> Início</a>
+    <a th:href="@{/alunos}"><i class="ti ti-users"></i> Alunos</a>
+    <a th:href="@{/materias}"><i class="ti ti-book"></i> Matérias</a>
+    <a th:href="@{/turmas}" class="active"><i class="ti ti-chalkboard"></i> Turmas</a>
+    <div class="nav-status"><span class="dot"></span> Sistema ativo · Porta 8081</div>
 </nav>
 
 <div class="page-header">
-    <h1>Turmas</h1>
-    <p>Gerencie as turmas e matrículas dos alunos</p>
+    <div class="page-header-inner">
+        <div>
+            <h1><i class="ti ti-chalkboard"></i> Turmas</h1>
+            <p>Gerencie turmas, matrículas e notas dos alunos</p>
+        </div>
+        <a th:href="@{/turmas/novo}" class="btn-primary"><i class="ti ti-plus"></i> Nova Turma</a>
+    </div>
 </div>
 
 <div class="content">
-    <div class="card">
-        <div class="top-bar">
-            <div class="actions">
-                <a th:href="@{/turmas/consultar}" class="btn btn-secondary"><i class="ti ti-search"></i> Consultar por código</a>
-                <a th:href="@{/turmas/novo}" class="btn btn-primary"><i class="ti ti-plus"></i> Nova turma</a>
-            </div>
-        </div>
+    <div th:if="${sucesso}" class="alert alert-success">
+        <i class="ti ti-check"></i> <span th:text="${sucesso}"></span>
+    </div>
 
-        <div th:if="${sucesso}" class="alert alert-success"><i class="ti ti-check"></i> <span th:text="${sucesso}"></span></div>
-        <div th:if="${erro}" class="alert alert-danger"><i class="ti ti-alert-circle"></i> <span th:text="${erro}"></span></div>
+    <div class="search-bar">
+        <i class="ti ti-search"></i>
+        <input type="text" id="search" placeholder="Buscar por código ou descrição..." onkeyup="filtrar()">
+    </div>
 
-        <div th:if="${turmas != null and !turmas.isEmpty()}">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Descrição</th>
-                        <th>Matéria</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="t : ${turmas}">
-                        <td><span class="badge badge-green" th:text="${t.codigo}"></span></td>
-                        <td th:text="${t.descricao}"></td>
-                        <td th:text="${t.materiaNome}"></td>
-                        <td>
-                            <div class="actions">
-                                <a th:href="@{/turmas/consultar(codigo=${t.codigo})}" class="btn btn-secondary btn-sm"><i class="ti ti-eye"></i> Ver</a>
-                                <a th:href="@{/turmas/{id}/matricular(id=${t.id})}" class="btn btn-success btn-sm"><i class="ti ti-user-plus"></i> Matricular</a>
-                                <form th:action="@{/turmas/deletar/{id}(id=${t.id})}" method="post" onsubmit="return confirm('Confirma a exclusão?')">
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="ti ti-trash"></i></button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="table-box">
+        <div class="table-header">
+            <h4><i class="ti ti-list" style="font-size:14px;vertical-align:-2px;margin-right:5px;"></i>Lista de turmas</h4>
+            <span class="count" id="count-badge" th:text="${turmas != null ? turmas.size() + ' registros' : '0 registros'}">0 registros</span>
         </div>
-        <div th:if="${turmas == null or turmas.isEmpty()}" class="empty">
-            <i class="ti ti-school"></i>
-            <p>Nenhuma turma cadastrada ainda.</p>
+        <div th:if="${turmas == null or turmas.isEmpty()}" class="empty-state">
+            <i class="ti ti-chalkboard-off"></i>
+            <p>Nenhuma turma cadastrada ainda.<br>Clique em <strong>Nova Turma</strong> para começar.</p>
         </div>
+        <table th:if="${turmas != null and !turmas.isEmpty()}" id="tabela">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Matéria</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="t : ${turmas}">
+                    <td><span class="code-badge" th:text="${t.codigo}">T01</span></td>
+                    <td th:text="${t.descricao}">Descrição</td>
+                    <td th:text="${t.materiaNome}">Matéria</td>
+                    <td>
+                        <div class="action-btns">
+                            <a th:href="@{/turmas/consultar(codigo=${t.codigo})}" class="action-btn view">
+                                <i class="ti ti-eye"></i> Ver detalhes
+                            </a>
+                            <a th:href="@{/turmas/{id}/matricular(id=${t.id})}" class="action-btn enroll">
+                                <i class="ti ti-user-plus"></i> Matricular
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+
+<script>
+function filtrar() {
+    const q = document.getElementById('search').value.toLowerCase();
+    const rows = document.querySelectorAll('#tabela tbody tr');
+    let count = 0;
+    rows.forEach(r => { const show = r.innerText.toLowerCase().includes(q); r.style.display = show ? '' : 'none'; if (show) count++; });
+    const badge = document.getElementById('count-badge');
+    if (badge) badge.textContent = count + ' registros';
+}
+</script>
 </body>
 </html>

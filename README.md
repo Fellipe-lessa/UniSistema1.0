@@ -138,6 +138,4 @@ Acesse em: **http://localhost:8081**
 
 ---
 
-## 📄 Licença
 
-Projeto desenvolvido para fins acadêmicos.

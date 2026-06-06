@@ -38,15 +38,29 @@
         tbody tr:hover { background: #fffdf0; }
         tbody td { padding: 13px 20px; font-size: 14px; color: #444; }
         .code-badge { font-size: 12px; font-weight: 700; font-family: monospace; padding: 3px 9px; border-radius: 6px; background: #fff8e1; color: #f57f17; }
-        .action-btns { display: flex; gap: 6px; }
+        .action-btns { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
         .action-btn { font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 6px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: opacity 0.2s; white-space: nowrap; }
         .action-btn:hover { opacity: 0.8; }
-        .action-btn.view { background: #fff8e1; color: #f57f17; }
+        .action-btn.view   { background: #fff8e1; color: #f57f17; }
         .action-btn.enroll { background: #e8eaf6; color: #3949ab; }
+        .action-btn.delete { background: #ffebee; color: #c62828; }
         .empty-state { text-align: center; padding: 48px 20px; color: #bbb; }
         .empty-state i { font-size: 40px; margin-bottom: 12px; display: block; }
         .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; display: flex; align-items: center; gap: 8px; }
         .alert-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+        .alert-error   { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 999; align-items: center; justify-content: center; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: #fff; border-radius: 14px; padding: 28px; max-width: 380px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+        .modal-icon { width: 48px; height: 48px; border-radius: 50%; background: #ffebee; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+        .modal-icon i { font-size: 24px; color: #c62828; }
+        .modal h3 { font-size: 16px; font-weight: 700; color: #1a237e; text-align: center; margin-bottom: 8px; }
+        .modal p { font-size: 13px; color: #666; text-align: center; margin-bottom: 22px; line-height: 1.6; }
+        .modal-btns { display: flex; gap: 10px; }
+        .modal-btns button { flex: 1; padding: 10px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: opacity 0.2s; }
+        .modal-btns button:hover { opacity: 0.88; }
+        .btn-cancel-modal { background: #f0f2f5; color: #555; }
+        .btn-confirm-delete { background: #c62828; color: #fff; }
     </style>
 </head>
 <body>
@@ -70,9 +84,8 @@
 </div>
 
 <div class="content">
-    <div th:if="${sucesso}" class="alert alert-success">
-        <i class="ti ti-check"></i> <span th:text="${sucesso}"></span>
-    </div>
+    <div th:if="${sucesso}" class="alert alert-success"><i class="ti ti-check"></i><span th:text="${sucesso}"></span></div>
+    <div th:if="${erro}" class="alert alert-error"><i class="ti ti-alert-circle"></i><span th:text="${erro}"></span></div>
 
     <div class="search-bar">
         <i class="ti ti-search"></i>
@@ -110,6 +123,10 @@
                             <a th:href="@{/turmas/{id}/matricular(id=${t.id})}" class="action-btn enroll">
                                 <i class="ti ti-user-plus"></i> Matricular
                             </a>
+                            <button type="button" class="action-btn delete"
+                                    th:onclick="'confirmarExclusao(' + ${t.id} + ', \'' + ${t.codigo} + '\')'">
+                                <i class="ti ti-trash"></i> Excluir
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -117,6 +134,20 @@
         </table>
     </div>
 </div>
+
+<div class="modal-overlay" id="modal">
+    <div class="modal">
+        <div class="modal-icon"><i class="ti ti-trash"></i></div>
+        <h3>Confirmar exclusão</h3>
+        <p id="modal-msg">Tem certeza que deseja excluir esta turma?</p>
+        <div class="modal-btns">
+            <button class="btn-cancel-modal" onclick="fecharModal()">Cancelar</button>
+            <button class="btn-confirm-delete" id="btn-confirmar">Confirmar exclusão</button>
+        </div>
+    </div>
+</div>
+
+<form id="form-delete" method="post" style="display:none;"></form>
 
 <script>
 function filtrar() {
@@ -127,6 +158,17 @@ function filtrar() {
     const badge = document.getElementById('count-badge');
     if (badge) badge.textContent = count + ' registros';
 }
+function confirmarExclusao(id, codigo) {
+    document.getElementById('modal-msg').innerHTML =
+        'Tem certeza que deseja excluir a turma <strong>' + codigo + '</strong>?<br>Todos os alunos matriculados serão removidos também.';
+    document.getElementById('btn-confirmar').onclick = function() {
+        document.getElementById('form-delete').action = '/turmas/deletar/' + id;
+        document.getElementById('form-delete').submit();
+    };
+    document.getElementById('modal').classList.add('show');
+}
+function fecharModal() { document.getElementById('modal').classList.remove('show'); }
+document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) fecharModal(); });
 </script>
 </body>
 </html>

@@ -21,9 +21,15 @@ public class Matricula {
         return (nota1 + nota2 + nota3) / 3.0;
     }
 
+    // Só considera aprovado/reprovado se as notas foram realmente lançadas (não nulas)
     public boolean isAprovado() {
         Double media = getMedia();
         return media != null && media >= 6.0;
+    }
+
+    // Retorna true se as notas ainda não foram lançadas
+    public boolean isSemNotas() {
+        return nota1 == null && nota2 == null && nota3 == null;
     }
 
     public Integer getId() { return id; }

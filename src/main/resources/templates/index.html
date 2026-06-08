@@ -436,9 +436,9 @@
                     · Matrícula <span th:text="${m.alunoMatricula}">0000</span>
                 </div>
             </div>
-            <span th:if="${m.nota1 != null and m.media >= 6}" class="badge-status badge-ok">Aprovado</span>
-            <span th:if="${m.nota1 != null and m.media < 6}"  class="badge-status badge-warn">Reprovado</span>
-            <span th:if="${m.nota1 == null}" class="badge-status" style="background:#f0f2f5;color:#9e9e9e;">Sem notas</span>
+            <span th:if="${m.semNotas}" class="badge-status" style="background:#f0f2f5;color:#9e9e9e;">Sem notas</span>
+            <span th:if="${!m.semNotas and m.media >= 6}" class="badge-status badge-ok">Aprovado</span>
+            <span th:if="${!m.semNotas and m.media < 6}" class="badge-status badge-warn">Reprovado</span>
         </div>
 
     </div>

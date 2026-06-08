@@ -28,13 +28,18 @@ public class AlunoDAO {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                Aluno a = new Aluno();
-                a.setId(rs.getInt("id"));
-                a.setNome(rs.getString("nome"));
-                a.setEndereco(rs.getString("endereco"));
-                a.setMatricula(rs.getString("matricula"));
-                a.setDataIngresso(rs.getDate("data_ingresso").toLocalDate());
-                alunos.add(a);
+                try {
+                    Aluno a = new Aluno();
+                    a.setId(rs.getInt("id"));
+                    a.setNome(rs.getString("nome"));
+                    a.setEndereco(rs.getString("endereco"));
+                    a.setMatricula(rs.getString("matricula"));
+                    java.sql.Date d = rs.getDate("data_ingresso");
+                    a.setDataIngresso(d != null ? d.toLocalDate() : java.time.LocalDate.of(1900,1,1));
+                    alunos.add(a);
+                } catch (Exception e) {
+                    // ignora registro inválido e continua
+                }
             }
         }
         return alunos;

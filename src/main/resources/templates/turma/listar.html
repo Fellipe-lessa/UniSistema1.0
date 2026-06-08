@@ -123,10 +123,15 @@
                             <a th:href="@{/turmas/{id}/matricular(id=${t.id})}" class="action-btn enroll">
                                 <i class="ti ti-user-plus"></i> Matricular
                             </a>
-                            <button type="button" class="action-btn delete"
-                                    th:onclick="'confirmarExclusao(' + ${t.id} + ', \'' + ${t.codigo} + '\')'">
-                                <i class="ti ti-trash"></i> Excluir
-                            </button>
+                            <form th:action="@{/turmas/deletar/{id}(id=${turma.id})}"
+                                  method="post"
+                                      onsubmit="return confirm('Deseja excluir esta turma?');"
+                                      style="display:inline;">
+                                    <button type="submit" class="action-btn delete">
+                                        <i class="ti ti-trash"></i> Excluir
+                                </button>
+                            
+                            </form>
                         </div>
                     </td>
                 </tr>

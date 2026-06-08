@@ -103,30 +103,30 @@
         </div>
         <table th:if="${materias != null and !materias.isEmpty()}" id="tabela">
             <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Nome</th>
-                    <th>Ementa</th>
-                    <th>Ações</th>
-                </tr>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Ementa</th>
+                <th>Ações</th>
+            </tr>
             </thead>
             <tbody>
-                <tr th:each="m : ${materias}">
-                    <td><span class="code-badge" th:text="${m.codigo}">MAT001</span></td>
-                    <td th:text="${m.nome}">Nome</td>
-                    <td><span class="ementa-text" th:text="${m.ementa}">Ementa</span></td>
-                    <td>
-                        <div class="action-btns">
-                            <a th:href="@{/materias/consultar(codigo=${m.codigo})}" class="action-btn view">
-                                <i class="ti ti-eye"></i> Ver detalhes
-                            </a>
-                            <button type="button" class="action-btn delete"
-                                    th:onclick="'confirmarExclusao(' + ${m.id} + ', \'' + ${m.nome} + '\')'">
-                                <i class="ti ti-trash"></i> Excluir
-                            </button>
-                        </div>
-                    </td>
-                </tr>
+            <tr th:each="m : ${materias}">
+                <td><span class="code-badge" th:text="${m.codigo}">MAT001</span></td>
+                <td th:text="${m.nome}">Nome</td>
+                <td><span class="ementa-text" th:text="${m.ementa}">Ementa</span></td>
+                <td>
+                    <div class="action-btns">
+                        <a th:href="@{/materias/consultar(codigo=${m.codigo})}" class="action-btn view">
+                            <i class="ti ti-eye"></i> Ver detalhes
+                        </a>
+                        <button type="button" class="action-btn delete"
+                                th:onclick="'confirmarExclusao(' + ${m.id} + ', \'' + ${m.nome} + '\')'">
+                            <i class="ti ti-trash"></i> Excluir
+                        </button>
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -147,25 +147,25 @@
 <form id="form-delete" method="post" style="display:none;"></form>
 
 <script>
-function filtrar() {
-    const q = document.getElementById('search').value.toLowerCase();
-    const rows = document.querySelectorAll('#tabela tbody tr');
-    let count = 0;
-    rows.forEach(r => { const show = r.innerText.toLowerCase().includes(q); r.style.display = show ? '' : 'none'; if (show) count++; });
-    const badge = document.getElementById('count-badge');
-    if (badge) badge.textContent = count + ' registros';
-}
-function confirmarExclusao(id, nome) {
-    document.getElementById('modal-msg').innerHTML =
-        'Tem certeza que deseja excluir a matéria <strong>' + nome + '</strong>?<br>Esta ação não pode ser desfeita.';
-    document.getElementById('btn-confirmar').onclick = function() {
-        document.getElementById('form-delete').action = '/materias/deletar/' + id;
-        document.getElementById('form-delete').submit();
-    };
-    document.getElementById('modal').classList.add('show');
-}
-function fecharModal() { document.getElementById('modal').classList.remove('show'); }
-document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) fecharModal(); });
+    function filtrar() {
+        const q = document.getElementById('search').value.toLowerCase();
+        const rows = document.querySelectorAll('#tabela tbody tr');
+        let count = 0;
+        rows.forEach(r => { const show = r.innerText.toLowerCase().includes(q); r.style.display = show ? '' : 'none'; if (show) count++; });
+        const badge = document.getElementById('count-badge');
+        if (badge) badge.textContent = count + ' registros';
+    }
+    function confirmarExclusao(id, nome) {
+        document.getElementById('modal-msg').innerHTML =
+            'Tem certeza que deseja excluir a matéria <strong>' + nome + '</strong>?<br>Esta ação não pode ser desfeita.';
+        document.getElementById('btn-confirmar').onclick = function() {
+            document.getElementById('form-delete').action = '/materias/deletar/' + id;
+            document.getElementById('form-delete').submit();
+        };
+        document.getElementById('modal').classList.add('show');
+    }
+    function fecharModal() { document.getElementById('modal').classList.remove('show'); }
+    document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) fecharModal(); });
 </script>
 </body>
 </html>

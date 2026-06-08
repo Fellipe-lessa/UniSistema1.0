@@ -8,140 +8,44 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
-
-        /* ── NAV ── */
-        nav {
-            background: #1a237e;
-            padding: 0 40px;
-            display: flex;
-            align-items: center;
-            height: 60px;
-            gap: 32px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-        }
+        nav { background: #1a237e; padding: 0 40px; display: flex; align-items: center; height: 60px; gap: 32px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
         nav .brand { font-size: 18px; font-weight: 600; color: #90caf9; margin-right: 16px; display: flex; align-items: center; gap: 8px; }
         nav a { color: #fff; text-decoration: none; font-size: 14px; opacity: 0.9; padding: 6px 12px; border-radius: 6px; transition: background 0.2s; display: flex; align-items: center; gap: 6px; }
         nav a:hover { background: rgba(255,255,255,0.15); opacity: 1; }
         nav a i { font-size: 16px; }
-        .nav-status {
-            margin-left: auto;
-            display: flex; align-items: center; gap: 7px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.18);
-            color: rgba(255,255,255,0.75);
-            font-size: 12px;
-            padding: 5px 13px;
-            border-radius: 999px;
-        }
-        .nav-status .dot {
-            width: 7px; height: 7px; border-radius: 50%;
-            background: #4ade80;
-            box-shadow: 0 0 0 2px rgba(74,222,128,0.3);
-        }
-
-        /* ── HERO ── */
-        .hero {
-            background: #1a237e;
-            padding: 64px 40px 96px;
-            text-align: center;
-        }
-        .hero .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.15);
-            color: #90caf9;
-            font-size: 12px;
-            letter-spacing: 2px;
-            padding: 5px 16px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
+        .nav-status { margin-left: auto; display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.75); font-size: 12px; padding: 5px 13px; border-radius: 999px; }
+        .nav-status .dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 2px rgba(74,222,128,0.3); }
+        .hero { background: #1a237e; padding: 64px 40px 96px; text-align: center; }
+        .hero .badge { display: inline-block; background: rgba(255,255,255,0.15); color: #90caf9; font-size: 12px; letter-spacing: 2px; padding: 5px 16px; border-radius: 20px; margin-bottom: 20px; font-weight: 500; }
         .hero h1 { font-size: 38px; color: #fff; margin-bottom: 16px; font-weight: 600; }
         .hero p { font-size: 16px; color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto 36px; line-height: 1.7; }
         .hero-buttons { display: flex; gap: 12px; justify-content: center; }
-        .hero-buttons .btn-white {
-            background: #fff; color: #1a237e;
-            border: none; padding: 13px 30px;
-            border-radius: 8px; font-size: 14px;
-            font-weight: 600; cursor: pointer;
-            text-decoration: none;
-            transition: opacity 0.2s;
-            display: flex; align-items: center; gap: 7px;
-        }
+        .hero-buttons .btn-white { background: #fff; color: #1a237e; border: none; padding: 13px 30px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; transition: opacity 0.2s; display: flex; align-items: center; gap: 7px; }
         .hero-buttons .btn-white:hover { opacity: 0.9; }
-        .hero-buttons .btn-outline {
-            background: transparent; color: #fff;
-            border: 1.5px solid rgba(255,255,255,0.4);
-            padding: 13px 30px; border-radius: 8px;
-            font-size: 14px; cursor: pointer;
-            text-decoration: none;
-            transition: background 0.2s;
-            display: flex; align-items: center; gap: 7px;
-        }
+        .hero-buttons .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.4); padding: 13px 30px; border-radius: 8px; font-size: 14px; cursor: pointer; text-decoration: none; transition: background 0.2s; display: flex; align-items: center; gap: 7px; }
         .hero-buttons .btn-outline:hover { background: rgba(255,255,255,0.1); }
-
-        /* ── CARDS MÓDULOS ── */
-        .cards-wrapper {
-            max-width: 960px;
-            margin: -48px auto 0;
-            padding: 0 40px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-        }
-        .card {
-            background: #fff;
-            padding: 32px 28px;
-            border: 0.5px solid #e0e0e0;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+        .cards-wrapper { max-width: 960px; margin: -48px auto 0; padding: 0 40px; display: grid; grid-template-columns: repeat(3, 1fr); }
+        .card { background: #fff; padding: 32px 28px; border: 0.5px solid #e0e0e0; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
         .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,35,126,0.13); z-index: 1; }
         .card:first-child { border-radius: 12px 0 0 12px; }
         .card:last-child  { border-radius: 0 12px 12px 0; }
-        .card.featured {
-            background: #1a237e;
-            border-color: rgba(255,255,255,0.1);
-        }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-        }
+        .card.featured { background: #1a237e; border-color: rgba(255,255,255,0.1); }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
         .card:first-child::before { background: #3949ab; }
-        .card.featured::before    { background: #90caf9; }
-        .card:last-child::before  { background: #2e7d32; }
-
-        .card-icon {
-            width: 50px; height: 50px;
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 16px;
-            font-size: 24px;
-        }
+        .card.featured::before { background: #90caf9; }
+        .card:last-child::before { background: #2e7d32; }
+        .card-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 24px; }
         .card-icon.blue  { background: #e8eaf6; color: #3949ab; }
         .card-icon.white { background: rgba(255,255,255,0.15); color: #fff; }
         .card-icon.green { background: #e8f5e9; color: #2e7d32; }
-
-        .card-count {
-            position: absolute;
-            top: 20px; right: 20px;
-            font-size: 11px; font-weight: 700;
-            padding: 3px 9px; border-radius: 999px;
-        }
+        .card-count { position: absolute; top: 20px; right: 20px; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
         .card-count.blue  { background: #e8eaf6; color: #3949ab; }
         .card-count.white { background: rgba(255,255,255,0.2); color: #fff; }
         .card-count.green { background: #e8f5e9; color: #2e7d32; }
-
         .card h2 { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
         .card.featured h2 { color: #fff; }
         .card p { font-size: 14px; line-height: 1.6; margin-bottom: 22px; color: #555; }
         .card.featured p { color: rgba(255,255,255,0.7); }
-
         .card-features { list-style: none; margin-bottom: 26px; display: flex; flex-direction: column; gap: 9px; }
         .card-features li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; }
         .card-features li i { font-size: 15px; }
@@ -149,17 +53,8 @@
         .card-features li i.white { color: #90caf9; }
         .card-features li i.green { color: #2e7d32; }
         .card.featured .card-features li { color: rgba(255,255,255,0.75); }
-
         .card-actions { display: flex; gap: 8px; }
-        .card-btn {
-            flex: 1;
-            padding: 11px 8px; border: none;
-            border-radius: 8px; font-size: 13px;
-            font-weight: 600; cursor: pointer;
-            text-decoration: none; text-align: center;
-            transition: opacity 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 5px;
-        }
+        .card-btn { flex: 1; padding: 11px 8px; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .card-btn:hover { opacity: 0.88; }
         .card-btn.blue        { background: #1a237e; color: #fff; }
         .card-btn.blue-light  { background: #e8eaf6; color: #3949ab; }
@@ -167,134 +62,47 @@
         .card-btn.white-ghost { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
         .card-btn.green       { background: #2e7d32; color: #fff; }
         .card-btn.green-light { background: #e8f5e9; color: #2e7d32; }
-
-        .featured-bg-circle {
-            position: absolute;
-            top: -30px; right: -30px;
-            width: 120px; height: 120px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        /* ── STATS RÁPIDAS ── */
-        .quick-stats {
-            max-width: 960px;
-            margin: 24px auto 0;
-            padding: 0 40px;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-        .qstat {
-            background: #fff;
-            border: 0.5px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 16px 18px;
-            display: flex; align-items: center; gap: 13px;
-        }
-        .qstat-icon {
-            width: 38px; height: 38px; border-radius: 9px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px; flex-shrink: 0;
-        }
+        .featured-bg-circle { position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none; }
+        .quick-stats { max-width: 960px; margin: 24px auto 0; padding: 0 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .qstat { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 10px; padding: 16px 18px; display: flex; align-items: center; gap: 13px; }
+        .qstat-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
         .qstat-icon.blue   { background: #e8eaf6; color: #3949ab; }
         .qstat-icon.green  { background: #e8f5e9; color: #2e7d32; }
         .qstat-icon.amber  { background: #fff8e1; color: #f57f17; }
         .qstat-icon.purple { background: #f3e5f5; color: #7b1fa2; }
         .qstat-num   { font-size: 22px; font-weight: 700; color: #1a237e; line-height: 1; }
         .qstat-label { font-size: 11px; color: #888; margin-top: 2px; }
-
-        /* ── STATS ANTIGOS ── */
-        .stats {
-            max-width: 960px;
-            margin: 20px auto 0;
-            padding: 0 40px 28px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-        .stat-card {
-            background: #fff;
-            border-radius: 10px;
-            padding: 24px;
-            text-align: center;
-            border: 0.5px solid #e0e0e0;
-        }
+        .stats { max-width: 960px; margin: 20px auto 0; padding: 0 40px 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .stat-card { background: #fff; border-radius: 10px; padding: 24px; text-align: center; border: 0.5px solid #e0e0e0; }
         .stat-card .number { font-size: 20px; font-weight: 700; color: #1a237e; margin-bottom: 6px; }
         .stat-card .label  { font-size: 13px; color: #888; }
-
-        /* ── ATIVIDADE RECENTE ── */
-        .recent-wrapper {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 40px 48px;
-        }
-        .section-label {
-            font-size: 11px; font-weight: 700;
-            letter-spacing: 0.08em; color: #9e9e9e;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-        .recent-box {
-            background: #fff;
-            border: 0.5px solid #e0e0e0;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .recent-header {
-            padding: 14px 20px;
-            border-bottom: 1px solid #f5f5f5;
-        }
+        .recent-wrapper { max-width: 960px; margin: 0 auto; padding: 0 40px 48px; }
+        .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #9e9e9e; text-transform: uppercase; margin-bottom: 12px; }
+        .recent-box { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; overflow: hidden; }
+        .recent-header { padding: 14px 20px; border-bottom: 1px solid #f5f5f5; }
         .recent-header h4 { font-size: 14px; font-weight: 600; color: #1a237e; }
-        .recent-row {
-            display: flex; align-items: center;
-            padding: 12px 20px;
-            border-bottom: 1px solid #fafafa;
-            gap: 12px;
-        }
+        .recent-row { display: flex; align-items: center; padding: 12px 20px; border-bottom: 1px solid #fafafa; gap: 12px; }
         .recent-row:last-child { border-bottom: none; }
-        .recent-avatar {
-            width: 32px; height: 32px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 11px; font-weight: 700; flex-shrink: 0;
-        }
+        .recent-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
         .recent-info { flex: 1; }
         .recent-name { font-size: 13px; font-weight: 600; color: #1a237e; }
         .recent-sub  { font-size: 11px; color: #888; }
-        .badge-status {
-            font-size: 11px; font-weight: 700;
-            padding: 3px 9px; border-radius: 999px;
-        }
+        .badge-status { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
         .badge-ok   { background: #e8f5e9; color: #2e7d32; }
         .badge-warn { background: #fff8e1; color: #f57f17; }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 12px;
-            color: #bbb;
-            border-top: 1px solid #e8e8e8;
-        }
+        footer { text-align: center; padding: 20px; font-size: 12px; color: #bbb; border-top: 1px solid #e8e8e8; }
         footer span { color: #3949ab; }
     </style>
 </head>
 <body>
-
-<!-- NAV -->
 <nav>
     <span class="brand"><i class="ti ti-school"></i> UniSistema</span>
     <a th:href="@{/}"><i class="ti ti-home"></i> Início</a>
     <a th:href="@{/alunos}"><i class="ti ti-users"></i> Alunos</a>
     <a th:href="@{/materias}"><i class="ti ti-book"></i> Matérias</a>
     <a th:href="@{/turmas}"><i class="ti ti-chalkboard"></i> Turmas</a>
-    <div class="nav-status">
-        <span class="dot"></span>
-        Sistema ativo · Porta 8081
-    </div>
+    <div class="nav-status"><span class="dot"></span> Sistema ativo · Porta 8081</div>
 </nav>
-
-<!-- HERO -->
 <div class="hero">
     <div class="badge">SISTEMA ACADÊMICO</div>
     <h1>Sistema de Gestão Universitária</h1>
@@ -304,10 +112,7 @@
         <a th:href="@{/turmas}" class="btn-outline"><i class="ti ti-chalkboard"></i> Ver turmas</a>
     </div>
 </div>
-
-<!-- CARDS MÓDULOS -->
 <div class="cards-wrapper">
-
     <div class="card">
         <span class="card-count blue">Módulo 1</span>
         <div class="card-icon blue"><i class="ti ti-users"></i></div>
@@ -323,10 +128,9 @@
             <a th:href="@{/alunos}" class="card-btn blue-light"><i class="ti ti-search"></i> Consultar</a>
         </div>
     </div>
-
     <div class="card featured">
         <div class="featured-bg-circle"></div>
-        <span class="card-count white">Modulo 2</span>
+        <span class="card-count white">Destaque</span>
         <div class="card-icon white"><i class="ti ti-book"></i></div>
         <h2>Matérias</h2>
         <p>Cadastre disciplinas com código único e ementa detalhada. Consulte rapidamente por código.</p>
@@ -340,7 +144,6 @@
             <a th:href="@{/materias}" class="card-btn white-ghost"><i class="ti ti-search"></i> Consultar</a>
         </div>
     </div>
-
     <div class="card">
         <span class="card-count green">Módulo 3</span>
         <div class="card-icon green"><i class="ti ti-school"></i></div>
@@ -356,10 +159,7 @@
             <a th:href="@{/turmas}" class="card-btn green-light"><i class="ti ti-search"></i> Consultar</a>
         </div>
     </div>
-
 </div>
-
-<!-- STATS RÁPIDAS -->
 <div class="quick-stats">
     <div class="qstat">
         <div class="qstat-icon blue"><i class="ti ti-users"></i></div>
@@ -390,44 +190,35 @@
         </div>
     </div>
 </div>
-
-<!-- STATS -->
 <div class="stats">
     <div class="stat-card">
         <div class="number">Cadastro de Estudantes</div>
         <div class="label">Insira e consulte informações dos alunos</div>
     </div>
     <div class="stat-card">
-        <div class="number">Visualize suas matérias</div>
-        <div class="label">Adicione diversas matérias e suas ementas</div>
+        <div class="number">Média 6,0</div>
+        <div class="label">Média mínima para aprovação obrigatória em cada matéria</div>
     </div>
     <div class="stat-card">
-        <div class="number">Crie turmas</div>
-        <div class="label">Insira e consulte suas turmas alocadas no sistema </div>
+        <div class="number">Infinitas Possibilidades</div>
+        <div class="label">Insira ou consulte suas matérias</div>
     </div>
 </div>
-
-<!-- ATIVIDADE RECENTE -->
 <div class="recent-wrapper">
     <p class="section-label">Atividade recente</p>
     <div class="recent-box">
         <div class="recent-header">
             <h4><i class="ti ti-clock" style="font-size:14px;vertical-align:-2px;margin-right:5px;"></i>Últimas matrículas registradas</h4>
         </div>
-
         <div th:if="${ultimasMatriculas == null or ultimasMatriculas.isEmpty()}" class="recent-row">
-            <div class="recent-avatar" style="background:#f0f2f5;color:#9e9e9e">
-                <i class="ti ti-clock" style="font-size:14px;"></i>
-            </div>
+            <div class="recent-avatar" style="background:#f0f2f5;color:#9e9e9e"><i class="ti ti-clock" style="font-size:14px;"></i></div>
             <div class="recent-info">
                 <div class="recent-name" style="color:#9e9e9e;">Nenhuma matrícula registrada ainda</div>
                 <div class="recent-sub">As matrículas aparecerão aqui conforme forem cadastradas</div>
             </div>
         </div>
-
         <div th:each="m : ${ultimasMatriculas}" class="recent-row">
-            <div class="recent-avatar" style="background:#e8eaf6;color:#3949ab"
-                 th:text="${#strings.substring(m.alunoNome, 0, 1)}">A</div>
+            <div class="recent-avatar" style="background:#e8eaf6;color:#3949ab" th:text="${#strings.substring(m.alunoNome, 0, 1)}">A</div>
             <div class="recent-info">
                 <div class="recent-name" th:text="${m.alunoNome}">Nome do Aluno</div>
                 <div class="recent-sub">
@@ -440,13 +231,8 @@
             <span th:if="${!m.semNotas and m.media >= 6}" class="badge-status badge-ok">Aprovado</span>
             <span th:if="${!m.semNotas and m.media < 6}" class="badge-status badge-warn">Reprovado</span>
         </div>
-
     </div>
 </div>
-
-<footer>
-    Sistema Universitário · Spring Boot 3.2.5 · <span>PostgreSQL</span> · Porta 8081
-</footer>
-
+<footer>Sistema Universitário · Spring Boot 3.2.5 · <span>PostgreSQL</span> · Porta 8081</footer>
 </body>
 </html>

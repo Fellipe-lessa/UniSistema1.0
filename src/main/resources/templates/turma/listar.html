@@ -111,6 +111,7 @@
             </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
             <tr th:each="t : ${turmas}">
                 <td><span class="code-badge" th:text="${t.codigo}">T01</span></td>
                 <td th:text="${t.descricao}">Descrição</td>
@@ -130,6 +131,33 @@
                     </div>
                 </td>
             </tr>
+=======
+                <tr th:each="t : ${turmas}">
+                    <td><span class="code-badge" th:text="${t.codigo}">T01</span></td>
+                    <td th:text="${t.descricao}">Descrição</td>
+                    <td th:text="${t.materiaNome}">Matéria</td>
+                    <td>
+                        <div class="action-btns">
+                            <a th:href="@{/turmas/consultar(codigo=${t.codigo})}" class="action-btn view">
+                                <i class="ti ti-eye"></i> Ver detalhes
+                            </a>
+                            <a th:href="@{/turmas/{id}/matricular(id=${t.id})}" class="action-btn enroll">
+                                <i class="ti ti-user-plus"></i> Matricular
+                            </a>
+                               <form th:action="@{/turmas/deletar/{id}(id=${turma.id})}"
+                                          method="post"
+                                          onsubmit="return confirm('Deseja realmente excluir esta turma?');"
+                                          style="display:inline; margin-left:5px;">
+                                    
+                                        <button type="submit" class="action-btn delete">
+                                            🗑 Excluir
+                                        </button>
+                                    
+                                    </form>
+                        </div>
+                    </td>
+                </tr>
+>>>>>>> d5818abb0a8c66c8c97774905c2a182af98e08b7
             </tbody>
         </table>
     </div>

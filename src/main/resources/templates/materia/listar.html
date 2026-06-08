@@ -111,6 +111,7 @@
             </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
             <tr th:each="m : ${materias}">
                 <td><span class="code-badge" th:text="${m.codigo}">MAT001</span></td>
                 <td th:text="${m.nome}">Nome</td>
@@ -127,6 +128,32 @@
                     </div>
                 </td>
             </tr>
+=======
+                <tr th:each="m : ${materias}">
+                    <td><span class="code-badge" th:text="${m.codigo}">MAT001</span></td>
+                    <td th:text="${m.nome}">Nome</td>
+                    <td><span class="ementa-text" th:text="${m.ementa}">Ementa</span></td>
+                    <td>
+                        <div class="action-btns">
+                            <a th:href="@{/materias/consultar(codigo=${m.codigo})}" class="action-btn view">
+                                <i class="ti ti-eye"></i> Ver detalhes
+                            </a>
+                                 <form th:action="@{/materias/deletar/{id}(id=${materia.id})}"
+                                      method="post"
+                                      onsubmit="return confirm('Deseja realmente excluir esta matéria?');"
+                                      style="display:inline; margin-left:5px;">
+                                
+                                    <button type="submit" class="action-btn delete">
+                                        🗑 Excluir
+                                    </button>
+                                
+                                </form>
+                            
+                            </form>               
+                        </div>
+                    </td>
+                </tr>
+>>>>>>> d5818abb0a8c66c8c97774905c2a182af98e08b7
             </tbody>
         </table>
     </div>

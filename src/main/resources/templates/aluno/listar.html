@@ -106,6 +106,7 @@
             </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
             <tr th:each="aluno : ${alunos}">
                 <td>
                     <div class="avatar-cell">
@@ -128,6 +129,36 @@
                     </div>
                 </td>
             </tr>
+=======
+                <tr th:each="aluno : ${alunos}">
+                    <td>
+                        <div class="avatar-cell">
+                            <div class="avatar" th:text="${#strings.substring(aluno.nome, 0, 1)}">A</div>
+                            <span th:text="${aluno.nome}">Nome</span>
+                        </div>
+                    </td>
+                    <td><span class="matricula-badge" th:text="${aluno.matricula}">0000</span></td>
+                    <td th:text="${aluno.endereco}">Endereço</td>
+                    <td th:text="${aluno.dataIngresso}">00/00/0000</td>
+                    <td>
+                        <div class="action-btns">
+                            <a th:href="@{/alunos/consultar(matricula=${aluno.matricula})}" class="action-btn view">
+                                <i class="ti ti-eye"></i> Ver detalhes
+                            </a>
+                            <form th:action="@{/alunos/deletar/{id}(id=${aluno.id})}"
+                             method="post"
+                                onsubmit="return confirm('Deseja realmente excluir este aluno?');"
+                                       style="display:inline;">
+
+                                      <button type="submit" class="action-btn delete">
+                                          <i class="ti ti-trash"></i> Excluir
+                                   </button>
+
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+>>>>>>> d5818abb0a8c66c8c97774905c2a182af98e08b7
             </tbody>
         </table>
     </div>

@@ -121,10 +121,16 @@
                             <a th:href="@{/alunos/consultar(matricula=${aluno.matricula})}" class="action-btn view">
                                 <i class="ti ti-eye"></i> Ver detalhes
                             </a>
-                            <button type="button" class="action-btn delete"
-                                    th:onclick="'confirmarExclusao(' + ${aluno.id} + ', \'' + ${aluno.nome} + '\')'">
-                                <i class="ti ti-trash"></i> Excluir
-                            </button>
+                            <form th:action="@{/alunos/deletar/{id}(id=${aluno.id})}"
+                             method="post"
+                                onsubmit="return confirm('Deseja realmente excluir este aluno?');"
+                                       style="display:inline;">
+
+                                      <button type="submit" class="action-btn delete">
+                                          <i class="ti ti-trash"></i> Excluir
+                                   </button>
+
+                            </form>
                         </div>
                     </td>
                 </tr>

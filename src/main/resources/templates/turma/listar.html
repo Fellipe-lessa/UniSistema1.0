@@ -103,14 +103,35 @@
         </div>
         <table th:if="${turmas != null and !turmas.isEmpty()}" id="tabela">
             <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Descrição</th>
-                    <th>Matéria</th>
-                    <th>Ações</th>
-                </tr>
+            <tr>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>Matéria</th>
+                <th>Ações</th>
+            </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
+            <tr th:each="t : ${turmas}">
+                <td><span class="code-badge" th:text="${t.codigo}">T01</span></td>
+                <td th:text="${t.descricao}">Descrição</td>
+                <td th:text="${t.materiaNome}">Matéria</td>
+                <td>
+                    <div class="action-btns">
+                        <a th:href="@{/turmas/consultar(codigo=${t.codigo})}" class="action-btn view">
+                            <i class="ti ti-eye"></i> Ver detalhes
+                        </a>
+                        <a th:href="@{/turmas/{id}/matricular(id=${t.id})}" class="action-btn enroll">
+                            <i class="ti ti-user-plus"></i> Matricular
+                        </a>
+                        <button type="button" class="action-btn delete"
+                                th:onclick="'confirmarExclusao(' + ${t.id} + ', \'' + ${t.codigo} + '\')'">
+                            <i class="ti ti-trash"></i> Excluir
+                        </button>
+                    </div>
+                </td>
+            </tr>
+=======
                 <tr th:each="t : ${turmas}">
                     <td><span class="code-badge" th:text="${t.codigo}">T01</span></td>
                     <td th:text="${t.descricao}">Descrição</td>
@@ -136,6 +157,7 @@
                         </div>
                     </td>
                 </tr>
+>>>>>>> d5818abb0a8c66c8c97774905c2a182af98e08b7
             </tbody>
         </table>
     </div>
@@ -156,25 +178,25 @@
 <form id="form-delete" method="post" style="display:none;"></form>
 
 <script>
-function filtrar() {
-    const q = document.getElementById('search').value.toLowerCase();
-    const rows = document.querySelectorAll('#tabela tbody tr');
-    let count = 0;
-    rows.forEach(r => { const show = r.innerText.toLowerCase().includes(q); r.style.display = show ? '' : 'none'; if (show) count++; });
-    const badge = document.getElementById('count-badge');
-    if (badge) badge.textContent = count + ' registros';
-}
-function confirmarExclusao(id, codigo) {
-    document.getElementById('modal-msg').innerHTML =
-        'Tem certeza que deseja excluir a turma <strong>' + codigo + '</strong>?<br>Todos os alunos matriculados serão removidos também.';
-    document.getElementById('btn-confirmar').onclick = function() {
-        document.getElementById('form-delete').action = '/turmas/deletar/' + id;
-        document.getElementById('form-delete').submit();
-    };
-    document.getElementById('modal').classList.add('show');
-}
-function fecharModal() { document.getElementById('modal').classList.remove('show'); }
-document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) fecharModal(); });
+    function filtrar() {
+        const q = document.getElementById('search').value.toLowerCase();
+        const rows = document.querySelectorAll('#tabela tbody tr');
+        let count = 0;
+        rows.forEach(r => { const show = r.innerText.toLowerCase().includes(q); r.style.display = show ? '' : 'none'; if (show) count++; });
+        const badge = document.getElementById('count-badge');
+        if (badge) badge.textContent = count + ' registros';
+    }
+    function confirmarExclusao(id, codigo) {
+        document.getElementById('modal-msg').innerHTML =
+            'Tem certeza que deseja excluir a turma <strong>' + codigo + '</strong>?<br>Todos os alunos matriculados serão removidos também.';
+        document.getElementById('btn-confirmar').onclick = function() {
+            document.getElementById('form-delete').action = '/turmas/deletar/' + id;
+            document.getElementById('form-delete').submit();
+        };
+        document.getElementById('modal').classList.add('show');
+    }
+    function fecharModal() { document.getElementById('modal').classList.remove('show'); }
+    document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) fecharModal(); });
 </script>
 </body>
 </html>

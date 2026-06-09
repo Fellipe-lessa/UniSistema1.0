@@ -145,16 +145,16 @@
                             <a th:href="@{/turmas/{id}/matricular(id=${t.id})}" class="action-btn enroll">
                                 <i class="ti ti-user-plus"></i> Matricular
                             </a>
-                               <form th:action="@{/turmas/deletar/{id}(id=${turma.id})}"
-                                          method="post"
-                                          onsubmit="return confirm('Deseja realmente excluir esta turma?');"
-                                          style="display:inline; margin-left:5px;">
-                                    
-                                        <button type="submit" class="action-btn delete">
-                                            🗑 Excluir
-                                        </button>
-                                    
-                                    </form>
+                            <form th:action="@{/turmas/deletar/{id}(id=${t.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('Deseja realmente excluir esta turma?');"
+                                  style="display:inline; margin-left:5px;">
+
+                                <button type="submit" class="action-btn delete">
+                                    🗑 Excluir
+                                </button>
+
+                            </form>
                         </div>
                     </td>
                 </tr>

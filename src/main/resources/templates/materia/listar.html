@@ -139,18 +139,17 @@
                             <a th:href="@{/materias/consultar(codigo=${m.codigo})}" class="action-btn view">
                                 <i class="ti ti-eye"></i> Ver detalhes
                             </a>
-                                 <form th:action="@{/materias/deletar/{id}(id=${materia.id})}"
-                                      method="post"
-                                      onsubmit="return confirm('Deseja realmente excluir esta matéria?');"
-                                      style="display:inline; margin-left:5px;">
-                                
-                                    <button type="submit" class="action-btn delete">
-                                        🗑 Excluir
-                                    </button>
-                                
-                                </form>
+                            <form th:action="@{/materias/deletar/{id}(id=${m.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('Deseja realmente excluir esta matéria?');"
+                                  style="display:inline; margin-left:5px;">
+
+                                <button type="submit" class="action-btn delete">
+                                    🗑 Excluir
+                                </button>
+
+                            </form>
                             
-                            </form>               
                         </div>
                     </td>
                 </tr>

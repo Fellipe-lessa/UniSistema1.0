@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231a237e'/><polygon points='50,15 85,35 50,55 15,35' fill='white'/><polygon points='42,55 58,55 54,75 46,75' fill='white'/><circle cx='50' cy='35' r='5' fill='%2390caf9'/><line x1='75' y1='35' x2='75' y2='70' stroke='%2390caf9' stroke-width='3'/><circle cx='75' cy='70' r='5' fill='%2390caf9'/></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alunos · UniSistema</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%231a237e'/><polygon points='50,15 85,35 50,55 15,35' fill='white'/><polygon points='42,55 58,55 54,75 46,75' fill='white'/><circle cx='50' cy='35' r='5' fill='%2390caf9'/><line x1='75' y1='35' x2='75' y2='70' stroke='%2390caf9' stroke-width='3'/><circle cx='75' cy='70' r='5' fill='%2390caf9'/></svg>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -102,35 +102,11 @@
         </div>
         <table th:if="${alunos != null and !alunos.isEmpty()}" id="tabela">
             <thead>
-            <tr>
-                <th>Aluno</th><th>Matrícula</th><th>Endereço</th><th>Ingresso</th><th>Ações</th>
-            </tr>
+                <tr>
+                    <th>Aluno</th><th>Matrícula</th><th>Endereço</th><th>Ingresso</th><th>Ações</th>
+                </tr>
             </thead>
             <tbody>
-<<<<<<< HEAD
-            <tr th:each="aluno : ${alunos}">
-                <td>
-                    <div class="avatar-cell">
-                        <div class="avatar" th:text="${#strings.substring(aluno.nome, 0, 1)}">A</div>
-                        <span th:text="${aluno.nome}">Nome</span>
-                    </div>
-                </td>
-                <td><span class="matricula-badge" th:text="${aluno.matricula}">0000</span></td>
-                <td th:text="${aluno.endereco}">Endereço</td>
-                <td th:text="${aluno.dataIngresso}">00/00/0000</td>
-                <td>
-                    <div class="action-btns">
-                        <a th:href="@{/alunos/consultar(matricula=${aluno.matricula})}" class="action-btn view">
-                            <i class="ti ti-eye"></i> Ver detalhes
-                        </a>
-                        <button type="button" class="action-btn delete"
-                                th:onclick="'confirmarExclusao(' + ${aluno.id} + ', \'' + ${aluno.nome} + '\')'">
-                            <i class="ti ti-trash"></i> Excluir
-                        </button>
-                    </div>
-                </td>
-            </tr>
-=======
                 <tr th:each="aluno : ${alunos}">
                     <td>
                         <div class="avatar-cell">
@@ -146,20 +122,13 @@
                             <a th:href="@{/alunos/consultar(matricula=${aluno.matricula})}" class="action-btn view">
                                 <i class="ti ti-eye"></i> Ver detalhes
                             </a>
-                            <form th:action="@{/alunos/deletar/{id}(id=${aluno.id})}"
-                             method="post"
-                                onsubmit="return confirm('Deseja realmente excluir este aluno?');"
-                                       style="display:inline;">
-
-                                      <button type="submit" class="action-btn delete">
-                                          <i class="ti ti-trash"></i> Excluir
-                                   </button>
-
-                            </form>
+                            <button type="button" class="action-btn delete"
+                                    th:onclick="'confirmarExclusao(' + ${aluno.id} + ', \'' + ${aluno.nome} + '\')'">
+                                <i class="ti ti-trash"></i> Excluir
+                            </button>
                         </div>
                     </td>
                 </tr>
->>>>>>> d5818abb0a8c66c8c97774905c2a182af98e08b7
             </tbody>
         </table>
     </div>
@@ -177,24 +146,24 @@
 </div>
 <form id="form-delete" method="post" style="display:none;"></form>
 <script>
-    function filtrar() {
-        const q = document.getElementById('search').value.toLowerCase();
-        const rows = document.querySelectorAll('#tabela tbody tr');
-        let count = 0;
-        rows.forEach(r => { const show = r.innerText.toLowerCase().includes(q); r.style.display = show ? '' : 'none'; if (show) count++; });
-        const badge = document.getElementById('count-badge');
-        if (badge) badge.textContent = count + ' registros';
-    }
-    function confirmarExclusao(id, nome) {
-        document.getElementById('modal-msg').innerHTML = 'Tem certeza que deseja excluir o aluno <strong>' + nome + '</strong>?<br>Esta ação não pode ser desfeita.';
-        document.getElementById('btn-confirmar').onclick = function() {
-            document.getElementById('form-delete').action = '/alunos/deletar/' + id;
-            document.getElementById('form-delete').submit();
-        };
-        document.getElementById('modal').classList.add('show');
-    }
-    function fecharModal() { document.getElementById('modal').classList.remove('show'); }
-    document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) fecharModal(); });
+function filtrar() {
+    const q = document.getElementById('search').value.toLowerCase();
+    const rows = document.querySelectorAll('#tabela tbody tr');
+    let count = 0;
+    rows.forEach(r => { const show = r.innerText.toLowerCase().includes(q); r.style.display = show ? '' : 'none'; if (show) count++; });
+    const badge = document.getElementById('count-badge');
+    if (badge) badge.textContent = count + ' registros';
+}
+function confirmarExclusao(id, nome) {
+    document.getElementById('modal-msg').innerHTML = 'Tem certeza que deseja excluir o aluno <strong>' + nome + '</strong>?<br>Esta ação não pode ser desfeita.';
+    document.getElementById('btn-confirmar').onclick = function() {
+        document.getElementById('form-delete').action = '/alunos/deletar/' + id;
+        document.getElementById('form-delete').submit();
+    };
+    document.getElementById('modal').classList.add('show');
+}
+function fecharModal() { document.getElementById('modal').classList.remove('show'); }
+document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) fecharModal(); });
 </script>
 </body>
 </html>

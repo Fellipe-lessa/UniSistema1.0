@@ -62,9 +62,10 @@ public class AlunoController {
             try {
                 Aluno aluno = alunoDAO.buscarPorMatricula(matricula);
                 if (aluno != null) {
-                    List<Matricula> materias = alunoDAO.buscarMateriasPorAluno(aluno.getId());
+                    List<Matricula> matriculas = alunoDAO.buscarMateriasPorAluno(aluno.getId());
+
                     model.addAttribute("aluno", aluno);
-                    model.addAttribute("materias", materias);
+                    model.addAttribute("matriculas", matriculas);
                 } else {
                     model.addAttribute("erro", "Aluno não encontrado com a matrícula: " + matricula);
                 }

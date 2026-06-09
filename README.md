@@ -126,7 +126,7 @@ cd universidade1.0
 ./mvnw spring-boot:run
 ```
 
-Acesse em: **https://universidade10-production.up.railway.app/**
+Acesse em: **https://unisistema-cadastro-e-consulta.up.railway.app/**
 
 ---
 
